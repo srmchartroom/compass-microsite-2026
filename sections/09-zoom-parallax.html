@@ -1,0 +1,160 @@
+<!-- ============================================================
+  COMPASS — Section 09: Zoom Parallax
+  GHL: paste into Custom Code block.
+  Requires: global.css, global.js loaded site-wide.
+  global.js provides: initZoomParallax() — reads --scroll-y and
+    applies per-image scale based on [data-zoom-rate] attribute.
+  Images: replace src with platform screenshots when available.
+  ============================================================ -->
+
+<style>
+  #zoom-parallax {
+    position: relative;
+    height: 100vh;
+    background: var(--dark);
+    overflow: hidden;
+  }
+
+  .zp-image {
+    position: absolute;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    will-change: transform;
+    transform-origin: center center;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .zp-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Position each image — 7 images at fixed absolute positions */
+  /* Image 1: center large */
+  .zp-img-1 {
+    width: 48%;
+    height: 55%;
+    top: 22%;
+    left: 26%;
+  }
+
+  /* Image 2: top-left */
+  .zp-img-2 {
+    width: 22%;
+    height: 28%;
+    top: 8%;
+    left: 4%;
+  }
+
+  /* Image 3: top-right tall */
+  .zp-img-3 {
+    width: 18%;
+    height: 50%;
+    top: 4%;
+    right: 4%;
+  }
+
+  /* Image 4: center-right */
+  .zp-img-4 {
+    width: 22%;
+    height: 28%;
+    top: 32%;
+    right: 10%;
+  }
+
+  /* Image 5: bottom-left */
+  .zp-img-5 {
+    width: 20%;
+    height: 30%;
+    bottom: 8%;
+    left: 6%;
+  }
+
+  /* Image 6: bottom-center-left */
+  .zp-img-6 {
+    width: 24%;
+    height: 26%;
+    bottom: 4%;
+    left: 28%;
+  }
+
+  /* Image 7: bottom-right */
+  .zp-img-7 {
+    width: 20%;
+    height: 28%;
+    bottom: 6%;
+    right: 6%;
+  }
+
+  /* Overlay: slight vignette to blend edges */
+  #zoom-parallax::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(13,24,39,0.6) 100%);
+    pointer-events: none;
+    z-index: 10;
+  }
+</style>
+
+<section id="zoom-parallax">
+
+  <div class="zp-image zp-img-1" data-zoom-rate="4">
+    <img
+      src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1280&h=720&fit=crop"
+      alt="CRM dashboard"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="zp-image zp-img-2" data-zoom-rate="5">
+    <img
+      src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1280&h=720&fit=crop"
+      alt="Analytics"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="zp-image zp-img-3" data-zoom-rate="6">
+    <img
+      src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=800&fit=crop"
+      alt="Metrics"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="zp-image zp-img-4" data-zoom-rate="5">
+    <img
+      src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1280&h=720&fit=crop"
+      alt="CRM pipeline"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="zp-image zp-img-5" data-zoom-rate="6">
+    <img
+      src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=800&fit=crop"
+      alt="Pipeline view"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="zp-image zp-img-6" data-zoom-rate="8">
+    <img
+      src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=1280&h=720&fit=crop"
+      alt="Sales view"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="zp-image zp-img-7" data-zoom-rate="9">
+    <img
+      src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=1280&h=720&fit=crop"
+      alt="Automation"
+      loading="lazy"
+    />
+  </div>
+
+</section>
