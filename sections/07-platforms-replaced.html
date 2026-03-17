@@ -1,0 +1,192 @@
+<!-- ============================================================
+  COMPASS — Section 07: Platforms Replaced
+  GHL: paste into Custom Code block.
+  Requires: global.css loaded site-wide.
+  ============================================================ -->
+
+<style>
+  #platforms-replaced {
+    background: #fff;
+    padding: 96px 0;
+  }
+
+  .pr-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+
+  .pr-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    cursor: default;
+  }
+
+  .pr-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(61,96,160,0.3);
+  }
+
+  /* Checkmark badge — hidden by default, reveals on hover */
+  .pr-check {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 4px 10px;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #16a34a;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .pr-card:hover .pr-check {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .pr-platform {
+    font-family: var(--font-headline);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .pr-category {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--light-blue);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .pr-value {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 900px) {
+    .pr-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 560px) {
+    .pr-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<section id="platforms-replaced" class="compass-section compass-dot-grid" style="padding:96px 0;">
+  <div class="compass-container">
+    <div class="compass-section-header" data-animate>
+      <div class="compass-badge" style="margin:0 auto 16px;">Platform Consolidation</div>
+      <h2>What Does Compass Replace?</h2>
+      <p>One platform that consolidates the tools you're already paying for — saving thousands per year.</p>
+    </div>
+
+    <div class="pr-grid">
+
+      <div class="pr-card" data-animate data-animate-delay="0ms">
+        <div class="pr-check">✓ Included in Compass</div>
+        <div class="pr-platform">Calendly</div>
+        <div class="pr-category">Scheduling &amp; Calendar Booking</div>
+        <p class="pr-value">Compass books appointments automatically without third-party scheduling apps.</p>
+      </div>
+
+      <div class="pr-card" data-animate data-animate-delay="50ms">
+        <div class="pr-check">✓ Included in Compass</div>
+        <div class="pr-platform">Mailchimp</div>
+        <div class="pr-category">Email Marketing</div>
+        <p class="pr-value">Full email marketing suite with campaigns, automations, and analytics built in.</p>
+      </div>
+
+      <div class="pr-card" data-animate data-animate-delay="100ms">
+        <div class="pr-check">✓ Included in Compass</div>
+        <div class="pr-platform">HubSpot / Salesforce</div>
+        <div class="pr-category">CRM &amp; Pipeline</div>
+        <p class="pr-value">Full CRM with pipeline management, deal tracking, and team visibility.</p>
+      </div>
+
+      <div class="pr-card" data-animate data-animate-delay="150ms">
+        <div class="pr-check">✓ Included in Compass</div>
+        <div class="pr-platform">ClickFunnels</div>
+        <div class="pr-category">Funnels &amp; Landing Pages</div>
+        <p class="pr-value">Build high-converting funnels and landing pages without extra subscriptions.</p>
+      </div>
+
+      <div class="pr-card" data-animate data-animate-delay="200ms">
+        <div class="pr-check">✓ Included in Compass</div>
+        <div class="pr-platform">Twilio</div>
+        <div class="pr-category">SMS &amp; Calling</div>
+        <p class="pr-value">Built-in SMS, MMS, and voice calling — no separate Twilio account needed.</p>
+      </div>
+
+      <div class="pr-card" data-animate data-animate-delay="250ms">
+        <div class="pr-check">✓ Included in Compass</div>
+        <div class="pr-platform">ActiveCampaign</div>
+        <div class="pr-category">Automation Workflows</div>
+        <p class="pr-value">Visual automation builder with multi-channel triggers, conditions, and actions.</p>
+      </div>
+
+      <div class="pr-card" data-animate data-animate-delay="300ms">
+        <div class="pr-check">✓ Included in Compass</div>
+        <div class="pr-platform">WordPress</div>
+        <div class="pr-category">Websites</div>
+        <p class="pr-value">Build and host your business website directly inside Compass.</p>
+      </div>
+
+      <div class="pr-card" data-animate data-animate-delay="350ms">
+        <div class="pr-check">✓ Included in Compass</div>
+        <div class="pr-platform">Zendesk</div>
+        <div class="pr-category">Support &amp; Chat</div>
+        <p class="pr-value">Live chat, web chat bots, and support ticketing in your unified inbox.</p>
+      </div>
+
+      <div class="pr-card" data-animate data-animate-delay="400ms">
+        <div class="pr-check">✓ Included in Compass</div>
+        <div class="pr-platform">SurveyMonkey</div>
+        <div class="pr-category">Surveys &amp; Forms</div>
+        <p class="pr-value">Create surveys, forms, and quizzes to capture lead data and feedback.</p>
+      </div>
+
+      <div class="pr-card" data-animate data-animate-delay="450ms">
+        <div class="pr-check">✓ Included in Compass</div>
+        <div class="pr-platform">Kajabi</div>
+        <div class="pr-category">Courses &amp; Memberships</div>
+        <p class="pr-value">Sell courses, memberships, and digital products — all from one dashboard.</p>
+      </div>
+
+      <div class="pr-card" data-animate data-animate-delay="500ms">
+        <div class="pr-check">✓ Included in Compass</div>
+        <div class="pr-platform">ManyChat</div>
+        <div class="pr-category">Messenger Bots</div>
+        <p class="pr-value">Build automated chat sequences across Facebook, Instagram, and SMS.</p>
+      </div>
+
+      <div class="pr-card" data-animate data-animate-delay="550ms">
+        <div class="pr-check">✓ Included in Compass</div>
+        <div class="pr-platform">Stripe Billing</div>
+        <div class="pr-category">Payments &amp; Invoicing</div>
+        <p class="pr-value">Collect payments, send invoices, and manage subscriptions in Compass.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
