@@ -1047,103 +1047,61 @@
     overflow: hidden;
     box-shadow: 0 40px 120px rgba(13,24,39,0.18), 0 8px 32px rgba(31,53,91,0.12);
     transform:
-      rotateX(calc(20deg * (1 - var(--tilt-progress))))
-      scale(calc(0.95 + 0.05 * var(--tilt-progress)));
+      rotateX(calc(38deg * (1 - var(--tilt-progress))))
+      scale(calc(0.88 + 0.12 * var(--tilt-progress)));
     transition: box-shadow 0.1s ease;
-    background: var(--cream);
+    background: var(--dark);
+    cursor: pointer;
+    position: relative;
+    aspect-ratio: 16 / 9;
   }
 
   .po-screenshot-wrap img {
     width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 16px;
-  }
-
-  /* ── Video thumbnail ── */
-  .po-video-section {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 0 24px;
-    text-align: center;
-  }
-
-  .po-video-heading {
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-  }
-
-  .po-video-thumb {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: var(--shadow-lg);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    aspect-ratio: 16 / 9;
-    background: var(--dark);
-  }
-
-  .po-video-thumb:hover {
-    transform: scale(1.03);
-    box-shadow: 0 20px 60px rgba(13,24,39,0.2);
-  }
-
-  .po-video-thumb img {
-    width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.85;
-    transition: opacity 0.25s ease;
+    display: block;
   }
 
-  .po-video-thumb:hover img {
-    opacity: 0.7;
+  .po-screenshot-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
   }
 
-  /* Play button overlay */
+  /* Play button overlay on screenshot */
   .po-play-btn {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
   }
 
   .po-play-icon {
-    width: 72px;
-    height: 72px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.92);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8px 32px rgba(13,24,39,0.2);
+    box-shadow: 0 8px 40px rgba(13,24,39,0.35);
     transition: transform 0.2s ease, background 0.2s ease;
   }
 
-  .po-video-thumb:hover .po-play-icon {
-    transform: scale(1.08);
+  .po-screenshot-wrap:hover .po-play-icon {
+    transform: scale(1.1);
     background: #fff;
   }
 
   .po-play-icon svg {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     color: var(--navy);
-    margin-left: 4px; /* optical centering for play triangle */
-  }
-
-  .po-video-label {
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    margin-top: 16px;
+    margin-left: 5px;
   }
 </style>
 
@@ -1156,32 +1114,19 @@
     </div>
   </div>
 
-  <!-- 3D ContainerScroll screenshot -->
+  <!-- 3D ContainerScroll — click to play video inline -->
   <div class="po-scroll-container" data-animate>
-    <div class="po-screenshot-wrap">
-      <img
-        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1280&h=720&fit=crop"
-        alt="Compass CRM dashboard"
-        width="1280"
-        height="720"
-        loading="lazy"
-      />
-    </div>
-  </div>
-
-  <!-- Video thumbnail -->
-  <div class="po-video-section">
-    <p class="po-video-heading">Platform Tour Video</p>
     <div
-      class="po-video-thumb"
-      data-video-trigger="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+      class="po-screenshot-wrap"
+      id="po-screenshot-wrap"
+      data-video-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
       role="button"
       tabindex="0"
       aria-label="Watch the Compass platform tour"
     >
       <img
-        src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1280&h=720&fit=crop"
-        alt="Platform tour thumbnail"
+        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1280&h=720&fit=crop"
+        alt="Compass CRM dashboard"
         width="1280"
         height="720"
         loading="lazy"
@@ -1194,22 +1139,25 @@
         </div>
       </div>
     </div>
-    <p class="po-video-label">3-minute platform overview</p>
   </div>
 </section>
 
-<!-- Video modal (shared; only one needed per page) -->
-<div class="compass-modal-overlay" id="compass-video-modal" role="dialog" aria-modal="true" aria-label="Video player">
-  <div class="compass-modal-inner">
-    <button class="compass-modal-close" aria-label="Close video">✕</button>
-    <iframe
-      src=""
-      allow="autoplay; encrypted-media"
-      allowfullscreen
-      title="Compass platform overview"
-    ></iframe>
-  </div>
-</div>
+<script>
+  (function () {
+    var wrap = document.getElementById('po-screenshot-wrap');
+    if (!wrap) return;
+    var videoSrc = wrap.getAttribute('data-video-src');
+    function playVideo() {
+      wrap.innerHTML = '<iframe src="' + videoSrc + '" allow="autoplay; encrypted-media" allowfullscreen title="Compass platform overview"></iframe>';
+      wrap.style.cursor = 'default';
+    }
+    wrap.addEventListener('click', playVideo);
+    wrap.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); playVideo(); }
+    });
+  })();
+</script>
+
 
 
 <!-- ============================================================
