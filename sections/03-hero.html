@@ -1,0 +1,347 @@
+<!-- ============================================================
+  COMPASS — Section 03: Hero
+  GHL: paste into Custom Code block below nav.
+  Requires: global.css, global.js loaded site-wide.
+  ============================================================ -->
+
+<style>
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 60% 0%, rgba(61,96,160,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 0% 90%, rgba(133,154,193,0.25) 0%, transparent 50%),
+      linear-gradient(
+        135deg,
+        var(--navy) 0%,
+        #1a2e52 15%,
+        #1e3a6a 35%,
+        #243f78 55%,
+        #1a2e52 75%,
+        var(--dark) 100%
+      );
+    background-size: 400% 400%;
+    animation: aurora-drift 60s ease infinite;
+    text-align: center;
+    padding: 80px 24px 60px;
+  }
+
+  /* Dot grid overlay */
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(133,154,193,0.18) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  /* Bottom fade to white (transition to next section) */
+  #hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 180px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.08) 60%, #fff);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    width: 100%;
+  }
+
+  /* Loading dots */
+  .hero-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    margin-bottom: 32px;
+  }
+
+  .hero-loader.is-hidden {
+    display: none;
+  }
+
+  .hero-loader span {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--light-blue);
+    animation: loading-dots 1.2s ease-in-out infinite;
+  }
+
+  .hero-loader span:nth-child(2) { animation-delay: 0.2s; }
+  .hero-loader span:nth-child(3) { animation-delay: 0.4s; }
+
+  /* Hero content — hidden until loader finishes */
+  .hero-content {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .hero-content.is-visible {
+    opacity: 1;
+  }
+
+  /* Logo */
+  .hero-logo {
+    height: 200px;
+    width: auto;
+    object-fit: contain;
+    margin: 0 auto 32px;
+    display: block;
+  }
+
+  /* Badge */
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(61, 96, 160, 0.18);
+    border: 1px solid rgba(133, 154, 193, 0.4);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.04em;
+    margin-bottom: 28px;
+  }
+
+  .hero-badge::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--light-blue);
+    flex-shrink: 0;
+  }
+
+  /* Headline */
+  .hero-headline {
+    font-family: var(--font-headline);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+
+  .hero-headline .accent {
+    color: var(--light-blue);
+  }
+
+  /* Subheadline */
+  .hero-sub {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2vw, 1.1875rem);
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.65;
+    max-width: 520px;
+    margin: 0 auto 40px;
+  }
+
+  /* CTAs */
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 56px;
+  }
+
+  /* Stats row */
+  .hero-stats {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(133, 154, 193, 0.2);
+    padding-top: 32px;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-val {
+    display: block;
+    font-family: var(--font-headline);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .stat-suffix {
+    font-family: var(--font-headline);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--light-blue);
+  }
+
+  .stat-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(133, 154, 193, 0.75);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* Scroll indicator */
+  .hero-scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 1.25rem;
+    animation: chevron-bounce 2s ease-in-out infinite;
+    cursor: pointer;
+    transition: opacity 0.4s ease;
+  }
+
+  .hero-scroll-indicator.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Staggered entry animation delays */
+  .hero-badge    { transition-delay: 0.1s; }
+  .hero-headline { transition-delay: 0.2s; }
+  .hero-sub      { transition-delay: 0.4s; }
+  .hero-ctas     { transition-delay: 0.6s; }
+  .hero-stats    { transition-delay: 0.8s; }
+
+  @media (max-width: 600px) {
+    .hero-logo { height: 140px; }
+    .hero-stats { gap: 28px; }
+    .stat-val { font-size: 2rem; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+  }
+</style>
+
+<section id="hero">
+  <div class="hero-inner">
+
+    <!-- Loading dots (shown for 800ms, then replaced by hero content) -->
+    <div class="hero-loader" id="hero-loader">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Hero content -->
+    <div class="hero-content" id="hero-content">
+      <img
+        class="hero-logo"
+        src="https://assets.cdn.filesafe.space/5KNcJcblwftDgsKpBJfp/media/685588248b2950e5056f625d.png"
+        alt="Compass by Chart Room"
+        width="400"
+        height="200"
+      />
+      <div class="hero-badge">AI-Powered CRM &amp; Automation Platform</div>
+      <h1 class="hero-headline">
+        Convert More<br>
+        <span class="accent">Leads</span><br>
+        Into Sales
+      </h1>
+      <p class="hero-sub">
+        Chart Room helps you capture, nurture, and close leads on autopilot through
+        SMS, Email, Live Chat, Phone Calls, and more.
+      </p>
+      <div class="hero-ctas">
+        <a class="compass-btn-moving-border" href="#pricing">
+          <span class="compass-btn-moving-border-inner">Get Started — $197/mo</span>
+        </a>
+        <a class="compass-btn-ghost" href="#platform-overview" style="color:rgba(255,255,255,0.8);border-color:rgba(133,154,193,0.35);background:rgba(61,96,160,0.1);">
+          Watch Overview →
+        </a>
+      </div>
+
+      <!-- Stats row -->
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-val" data-count="80" data-suffix="%">0%</span>
+          <span class="stat-label">Response Rate</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val" data-count="7" data-suffix="×">0×</span>
+          <span class="stat-label">Follow-up Channels</span>
+        </div>
+        <div class="stat-item">
+          <!-- 24/7 is static — no data-count -->
+          <span class="stat-val">24<span class="stat-suffix">/7</span></span>
+          <span class="stat-label">Automation</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val" data-count="100" data-suffix="+">0+</span>
+          <span class="stat-label">Integrations</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scroll chevron -->
+  <div class="hero-scroll-indicator" id="hero-scroll-chevron" aria-hidden="true">&#8964;</div>
+</section>
+
+<script>
+  // Hero entry sequence: 800ms loader → fade in content with staggered delays
+  (function () {
+    var loader = document.getElementById('hero-loader');
+    var content = document.getElementById('hero-content');
+    var chevron = document.getElementById('hero-scroll-chevron');
+
+    if (!loader || !content) return;
+
+    setTimeout(function () {
+      loader.classList.add('is-hidden');
+      // Stagger children by adding is-visible class
+      content.classList.add('is-visible');
+      var children = content.querySelectorAll('.hero-badge,.hero-headline,.hero-sub,.hero-ctas,.hero-stats');
+      children.forEach(function (el) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      });
+      children.forEach(function (el, i) {
+        setTimeout(function () {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, 100 + i * 150);
+      });
+    }, 800);
+
+    // Hide chevron after first scroll
+    var hideChevron = function () {
+      if (chevron) chevron.classList.add('is-hidden');
+      window.removeEventListener('scroll', hideChevron);
+    };
+    window.addEventListener('scroll', hideChevron, { passive: true });
+  })();
+</script>
