@@ -1,0 +1,158 @@
+<!-- ============================================================
+  COMPASS — Section 08: Integrations Marquee
+  GHL: paste into Custom Code block.
+  Requires: global.css, global.js loaded site-wide.
+  global.js provides: initMarqueePause() — reads computed
+    animation-duration and sets --marquee-duration to 4× on hover.
+  IMPORTANT: Both .marquee-track elements MUST use
+    animation-duration: var(--marquee-duration, 20s) (or 26s)
+    so JS can override via the CSS variable.
+  ============================================================ -->
+
+<style>
+  #integrations {
+    background: var(--cream);
+    padding: 96px 0;
+    overflow: hidden;
+  }
+
+  .int-logos-section {
+    margin-top: 48px;
+  }
+
+  /* Marquee row */
+  .marquee-wrapper {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  /* Fade edges via mask-image (per spec) — avoids background overlay issues */
+  .marquee-wrapper {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  /* Track: contains two copies of the logo list for infinite loop */
+  .marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    width: max-content;
+    animation: marquee-scroll var(--marquee-duration, 20s) linear infinite;
+    will-change: transform;
+  }
+
+  /* Row 2 goes right (reverse) */
+  .marquee-track.reverse {
+    animation: marquee-scroll var(--marquee-duration, 26s) linear infinite reverse;
+  }
+
+  .marquee-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--dark);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .marquee-logo:hover {
+    border-color: rgba(61,96,160,0.35);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .marquee-logo-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.625rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0;
+  }
+</style>
+
+<section id="integrations" class="compass-section" style="padding:96px 0;">
+  <div class="compass-container">
+    <div class="compass-section-header" data-animate>
+      <div class="compass-badge" style="margin:0 auto 16px;">Integrations</div>
+      <h2>Seamless Integration With 100+ Tools</h2>
+      <p>Integrate Compass with tools you already love — with custom integrations and Zapier.</p>
+    </div>
+  </div>
+
+  <div class="int-logos-section">
+    <!-- Row 1: scrolls left -->
+    <div class="marquee-wrapper">
+      <div class="marquee-track">
+        <!-- First copy -->
+        <div class="marquee-logo"><div class="marquee-logo-icon">S</div>Stripe</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Q</div>QuickBooks</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">f</div>Facebook</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">IG</div>Instagram</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">in</div>LinkedIn</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">T</div>TikTok</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">G</div>Google</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Z</div>Zapier</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Zm</div>Zoom</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Sl</div>Slack</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">GC</div>Google Calendar</div>
+        <!-- Second copy (identical — for seamless loop) -->
+        <div class="marquee-logo"><div class="marquee-logo-icon">S</div>Stripe</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Q</div>QuickBooks</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">f</div>Facebook</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">IG</div>Instagram</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">in</div>LinkedIn</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">T</div>TikTok</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">G</div>Google</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Z</div>Zapier</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Zm</div>Zoom</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Sl</div>Slack</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">GC</div>Google Calendar</div>
+      </div>
+    </div>
+
+    <!-- Row 2: scrolls right (reverse direction) -->
+    <div class="marquee-wrapper">
+      <div class="marquee-track reverse">
+        <!-- First copy -->
+        <div class="marquee-logo"><div class="marquee-logo-icon">Tw</div>Twilio</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Mg</div>Mailgun</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">SG</div>SendGrid</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">PP</div>PayPal</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Sh</div>Shopify</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">WP</div>WordPress</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Cl</div>Calendly</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">AC</div>ActiveCampaign</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">SF</div>Salesforce</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">HS</div>HubSpot</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">+</div>2000+ via Zapier</div>
+        <!-- Second copy (identical) -->
+        <div class="marquee-logo"><div class="marquee-logo-icon">Tw</div>Twilio</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Mg</div>Mailgun</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">SG</div>SendGrid</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">PP</div>PayPal</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Sh</div>Shopify</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">WP</div>WordPress</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Cl</div>Calendly</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">AC</div>ActiveCampaign</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">SF</div>Salesforce</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">HS</div>HubSpot</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">+</div>2000+ via Zapier</div>
+      </div>
+    </div>
+  </div>
+</section>
