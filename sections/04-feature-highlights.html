@@ -1,0 +1,205 @@
+<!-- ============================================================
+  COMPASS — Section 04: Feature Highlights
+  GHL: paste into Custom Code block after hero.
+  Requires: global.css, global.js loaded site-wide.
+  ============================================================ -->
+
+<style>
+  #feature-highlights {
+    background: #fff;
+    padding: 96px 0;
+  }
+
+  /* 6-column base grid: each card spans 2 cols.
+     Row 1: 3 cards fill cols 1-2, 3-4, 5-6.
+     Row 2: 2 cards at cols 2-4 and 4-6 → visually centered with 1 col margin each side. */
+  .fh-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .fh-card { grid-column: span 2; }
+
+  /* Bottom row: 2 cards centered in the 6-col grid */
+  .fh-grid .fh-card:nth-child(4) { grid-column: 2 / 4; }
+  .fh-grid .fh-card:nth-child(5) { grid-column: 4 / 6; }
+
+  .fh-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .fh-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(31,53,91,0.12);
+  }
+
+  /* Shine border */
+  .fh-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(61,96,160,0.5) 30%,
+      rgba(133,154,193,0.8) 50%,
+      rgba(61,96,160,0.5) 70%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: shine-sweep 2s linear infinite paused;
+  }
+
+  .fh-card:hover::before {
+    opacity: 1;
+    animation-play-state: running;
+  }
+
+  /* Icon */
+  .fh-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 16px;
+    color: var(--blue);
+  }
+
+  /* Keyword label */
+  .fh-keyword {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .fh-title {
+    font-family: var(--font-headline);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  .fh-body {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 900px) {
+    /* Switch to 4-col grid: 2 cards per row, all span 2 */
+    .fh-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .fh-card { grid-column: span 2; }
+    .fh-grid .fh-card:nth-child(4),
+    .fh-grid .fh-card:nth-child(5) {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .fh-grid { grid-template-columns: 1fr; }
+    .fh-card,
+    .fh-grid .fh-card:nth-child(4),
+    .fh-grid .fh-card:nth-child(5) {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
+
+<section id="feature-highlights" class="compass-section" style="padding:96px 0;">
+  <div class="compass-container">
+    <div class="compass-section-header" data-animate>
+      <h2>Everything You Need To Convert More Leads</h2>
+    </div>
+  </div>
+
+  <div class="fh-grid">
+
+    <!-- Card 1: Speed -->
+    <div class="fh-card" data-animate data-animate-delay="0ms">
+      <svg class="fh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+      </svg>
+      <span class="fh-keyword">Speed</span>
+      <div class="fh-title">Double Your Speed to Lead</div>
+      <p class="fh-body">Stop missing conversations. Streamline all communication in one place and respond before your competitors do.</p>
+    </div>
+
+    <!-- Card 2: Calendar -->
+    <div class="fh-card" data-animate data-animate-delay="100ms">
+      <svg class="fh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span class="fh-keyword">Calendar</span>
+      <div class="fh-title">Instantly Fill Your Calendar</div>
+      <p class="fh-body">Say goodbye to missed sales opportunities. Compass schedules appointments automatically around the clock.</p>
+    </div>
+
+    <!-- Card 3: Calls -->
+    <div class="fh-card" data-animate data-animate-delay="200ms">
+      <svg class="fh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.39a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.08 6.08l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      <span class="fh-keyword">Calls</span>
+      <div class="fh-title">Drive More Phone Calls</div>
+      <p class="fh-body">Automatically route calls and convert inbound leads to sales opportunities without lifting a finger.</p>
+    </div>
+
+    <!-- Card 4: Smart (centered, col 2-4) -->
+    <div class="fh-card" data-animate data-animate-delay="300ms">
+      <!-- Sparkles icon: 3 stars of different sizes (Lucide-style) -->
+      <svg class="fh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+        <path d="M20 3v4"/>
+        <path d="M22 5h-4"/>
+        <path d="M4 17v2"/>
+        <path d="M5 18H3"/>
+      </svg>
+      <span class="fh-keyword">Smart</span>
+      <div class="fh-title">Build Smart Nurture Campaigns</div>
+      <p class="fh-body">Get up to 80% response rate with SMART automation across SMS, Email, Voicemail, and more channels.</p>
+    </div>
+
+    <!-- Card 5: Performance (centered, col 4-6) -->
+    <div class="fh-card" data-animate data-animate-delay="400ms">
+      <svg class="fh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="20" x2="18" y2="10"/>
+        <line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+      <span class="fh-keyword">Performance</span>
+      <div class="fh-title">Gain Key Performance Insights</div>
+      <p class="fh-body">See how your campaigns and sales team are performing in real time with advanced reporting dashboards.</p>
+    </div>
+
+  </div>
+</section>
