@@ -1,0 +1,235 @@
+<!-- ============================================================
+  COMPASS — Section 13: Bottom CTA
+  GHL: paste into Custom Code block.
+  Requires: global.css loaded site-wide.
+  ============================================================ -->
+
+<style>
+  #bottom-cta {
+    background: var(--dark);
+    padding: 96px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Aurora glow at 60% opacity — same gradient + keyframe as hero, with opacity: 0.6 */
+  #bottom-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 60% 0%, rgba(61,96,160,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 0% 90%, rgba(133,154,193,0.25) 0%, transparent 50%),
+      linear-gradient(
+        135deg,
+        var(--navy) 0%,
+        #1a2e52 15%,
+        #1e3a6a 35%,
+        #243f78 55%,
+        #1a2e52 75%,
+        var(--dark) 100%
+      );
+    background-size: 400% 400%;
+    animation: aurora-drift 60s ease infinite;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  /* Dot grid overlay */
+  #bottom-cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(133,154,193,0.12) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .cta-header h2 {
+    color: #fff;
+    margin-bottom: 16px;
+  }
+
+  .cta-header p {
+    color: rgba(255,255,255,0.55);
+    font-size: 1.0625rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .cta-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Moving border card */
+  .cta-card-wrap {
+    padding: 3px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(
+      var(--moving-angle, 0deg),
+      var(--navy),
+      var(--blue),
+      var(--light-blue),
+      var(--blue),
+      var(--navy)
+    );
+    background-size: 300% 300%;
+    animation: moving-border 5s ease infinite;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .cta-card-wrap:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 48px rgba(13,24,39,0.4);
+  }
+
+  /* Ghost moving border (lighter) */
+  .cta-card-wrap.ghost {
+    background: linear-gradient(
+      var(--moving-angle, 0deg),
+      rgba(31,53,91,0.6),
+      rgba(61,96,160,0.6),
+      rgba(133,154,193,0.6),
+      rgba(61,96,160,0.6),
+      rgba(31,53,91,0.6)
+    );
+    animation-duration: 7s;
+  }
+
+  .cta-card {
+    background: rgba(13,24,39,0.88);
+    border-radius: calc(var(--radius-lg) - 3px);
+    padding: 36px 32px;
+    height: 100%;
+  }
+
+  .cta-card-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--light-blue);
+    margin-bottom: 16px;
+  }
+
+  .cta-card-headline {
+    font-family: var(--font-headline);
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+
+  .cta-card-price {
+    font-family: var(--font-headline);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--light-blue);
+    letter-spacing: -0.04em;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+
+  .cta-card-price span {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0;
+  }
+
+  .cta-card-body {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  .cta-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 13px 28px;
+    background: var(--blue);
+    color: #fff;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  .cta-card-btn:hover {
+    background: var(--light-blue);
+    color: var(--dark);
+  }
+
+  .cta-card-btn.ghost-btn {
+    background: rgba(61,96,160,0.2);
+    border: 1px solid rgba(133,154,193,0.3);
+  }
+
+  .cta-card-btn.ghost-btn:hover {
+    background: rgba(61,96,160,0.35);
+    color: #fff;
+  }
+
+  @media (max-width: 700px) {
+    .cta-cards { grid-template-columns: 1fr; }
+  }
+</style>
+
+<section id="bottom-cta" class="compass-section" style="padding:96px 0;">
+  <div class="compass-container cta-inner">
+    <div class="cta-header" data-animate>
+      <div class="compass-badge" style="margin:0 auto 16px;background:rgba(133,154,193,0.15);border-color:rgba(133,154,193,0.3);color:rgba(255,255,255,0.8);">Get Started</div>
+      <h2>Ready To Close More Deals?</h2>
+      <p>Join hundreds of businesses already using Compass to capture, nurture, and close.</p>
+    </div>
+
+    <div class="cta-cards">
+
+      <!-- Left: Get Started (solid moving border card + compass-btn-moving-border primary CTA) -->
+      <div class="cta-card-wrap" data-animate data-animate-delay="0ms">
+        <div class="cta-card">
+          <div class="cta-card-label">Start Today</div>
+          <div class="cta-card-headline">Start Today</div>
+          <div class="cta-card-price">$197 <span>/ month</span></div>
+          <p class="cta-card-body">No contracts. Cancel anytime. White-glove onboarding included.</p>
+          <a class="compass-btn-moving-border" href="#">
+            <span class="compass-btn-moving-border-inner">Get Started Now →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Schedule Demo (ghost moving border card + secondary ghost button) -->
+      <div class="cta-card-wrap ghost" data-animate data-animate-delay="100ms">
+        <div class="cta-card">
+          <div class="cta-card-label">See It Live</div>
+          <div class="cta-card-headline">See It Live</div>
+          <p class="cta-card-body" style="margin-bottom:28px;margin-top:16px;">Book a free demo. Ask anything. See exactly how Compass fits your business.</p>
+          <a class="cta-card-btn ghost-btn" href="https://meetings.hubspot.com/compass-demo" target="_blank" rel="noopener">Schedule a Demo →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
