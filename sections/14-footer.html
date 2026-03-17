@@ -1,0 +1,273 @@
+<!-- ============================================================
+  COMPASS — Section 14: Footer
+  GHL: paste as the LAST code block on the page.
+  Requires: global.css, global.js loaded site-wide.
+  global.js provides: initDockMagnify() — watches #compass-dock.
+  Sticky scroll technique: wrapper clips overflow; inner div is tall;
+    footer is sticky inside the inner div. Result: footer slides up
+    from beneath the preceding section as user scrolls to bottom.
+  ============================================================ -->
+
+<style>
+  /* ── Sticky footer wrapper technique ── */
+  .footer-sticky-wrapper {
+    position: relative;
+    height: 70vh;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .footer-sticky-inner {
+    position: relative;
+    height: calc(100vh + 70vh);
+    top: -100vh;
+  }
+
+  #compass-footer {
+    position: sticky;
+    top: calc(100vh - 70vh);
+    height: 70vh;
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 48px 24px 36px;
+    overflow: hidden;
+  }
+
+  /* Oversized COMPASS typographic treatment */
+  .footer-bg-text {
+    position: absolute;
+    bottom: -0.1em;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-headline);
+    font-size: clamp(3rem, 12vw, 10rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    white-space: nowrap;
+    background: linear-gradient(to bottom, rgba(31,53,91,0.25), transparent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  /* Floating logo card */
+  .footer-logo-card {
+    border: 1px solid rgba(61,96,160,0.25);
+    border-radius: var(--radius-lg);
+    padding: 12px 20px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(31,53,91,0.3);
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-logo-card img {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Social dock */
+  #compass-dock {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-pill);
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dock-item {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: rgba(255,255,255,0.65);
+    font-size: 1rem;
+    transition: background 0.2s ease, color 0.2s ease;
+    /* transform set by initDockMagnify() */
+  }
+
+  .dock-item:hover {
+    background: rgba(61,96,160,0.3);
+    color: #fff;
+  }
+
+  /* Brand links row */
+  .footer-brand-links {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Nav links */
+  .footer-nav-links {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-link {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--light-blue);
+    transition: width 0.25s ease;
+  }
+
+  .footer-link:hover {
+    color: rgba(255,255,255,0.85);
+  }
+
+  .footer-link:hover::after {
+    width: 100%;
+  }
+
+  .footer-brand-link {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(133,154,193,0.55);
+  }
+
+  .footer-brand-link:hover {
+    color: var(--light-blue);
+  }
+
+  /* Legal + copyright */
+  .footer-legal {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-legal a {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    color: rgba(255,255,255,0.25);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-legal a:hover {
+    color: rgba(255,255,255,0.5);
+  }
+
+  .footer-copy {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    color: rgba(255,255,255,0.2);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+</style>
+
+<!-- Sticky wrapper — this wraps the entire footer for the slide-up effect -->
+<div class="footer-sticky-wrapper">
+  <div class="footer-sticky-inner">
+
+    <footer id="compass-footer" role="contentinfo">
+
+      <!-- Oversized background text -->
+      <div class="footer-bg-text" aria-hidden="true">COMPASS</div>
+
+      <!-- Floating logo card -->
+      <!-- Light logo PNG: for use on dark backgrounds (footer bg is --dark) -->
+      <div class="footer-logo-card">
+        <img
+          src="https://assets.cdn.filesafe.space/5KNcJcblwftDgsKpBJfp/media/685588248b2950e5056f625d.png"
+          alt="Compass by Chart Room"
+          width="200"
+          height="48"
+        />
+      </div>
+
+      <!-- Social dock -->
+      <div id="compass-dock" role="list" aria-label="Social media links">
+        <a class="dock-item" href="#" role="listitem" aria-label="Facebook" title="Facebook">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a class="dock-item" href="#" role="listitem" aria-label="Instagram" title="Instagram">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a class="dock-item" href="#" role="listitem" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a class="dock-item" href="#" role="listitem" aria-label="Twitter / X" title="Twitter / X">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a class="dock-item" href="#" role="listitem" aria-label="YouTube" title="YouTube">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="var(--dark)"/></svg>
+        </a>
+      </div>
+
+      <!-- Brand links -->
+      <div class="footer-brand-links">
+        <a class="footer-link footer-brand-link" href="https://chartroomcreative.com" target="_blank" rel="noopener">Chart Room Creative</a>
+        <a class="footer-link footer-brand-link" href="https://chartroomlocal.com" target="_blank" rel="noopener">Chart Room Local</a>
+        <a class="footer-link footer-brand-link" href="https://wyndi.ai" target="_blank" rel="noopener">Wyndi AI</a>
+      </div>
+
+      <!-- Nav links -->
+      <div class="footer-nav-links">
+        <a class="footer-link" href="#industry-features">Features</a>
+        <a class="footer-link" href="#pricing">Pricing</a>
+        <a class="footer-link" href="#testimonials">Testimonials</a>
+        <a class="footer-link" href="#">Login</a>
+      </div>
+
+      <!-- Legal links -->
+      <div class="footer-legal">
+        <a href="https://wyndi.ai/wyndi-privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+        <a href="https://wyndi.ai/wyndi-terms-conditions" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+        <a href="https://wyndi.ai/wyndi-license" target="_blank" rel="noopener">License</a>
+      </div>
+
+      <!-- Copyright -->
+      <p class="footer-copy">&copy; 2026 Chart Room. All rights reserved.</p>
+
+    </footer>
+
+  </div>
+</div>
