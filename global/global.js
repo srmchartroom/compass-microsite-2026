@@ -196,10 +196,30 @@
       trigger.addEventListener('click', () => {
         const videoUrl = trigger.dataset.videoTrigger;
         const overlay = document.getElementById('compass-video-modal');
-        const iframe = overlay && overlay.querySelector('iframe');
-        if (!overlay || !iframe) return;
+        const inner = overlay && overlay.querySelector('.compass-modal-inner');
+        if (!overlay || !inner) return;
 
-        iframe.src = videoUrl;
+        // Remove any existing media element
+        const existing = inner.querySelector('iframe, video');
+        if (existing) existing.remove();
+
+        if (videoUrl.match(/\.mp4(\?|$)/i)) {
+          const vid = document.createElement('video');
+          vid.src = videoUrl;
+          vid.controls = true;
+          vid.autoplay = true;
+          vid.style.cssText = 'width:100%;height:100%;display:block;background:#000;';
+          inner.appendChild(vid);
+        } else {
+          const iframe = document.createElement('iframe');
+          iframe.src = videoUrl;
+          iframe.allow = 'autoplay; encrypted-media';
+          iframe.allowFullscreen = true;
+          iframe.title = 'Video';
+          iframe.style.cssText = 'width:100%;height:100%;border:none;display:block;';
+          inner.appendChild(iframe);
+        }
+
         overlay.classList.add('is-open');
       });
     });
@@ -207,8 +227,8 @@
     function closeModal() {
       const overlay = document.getElementById('compass-video-modal');
       if (!overlay) return;
-      const iframe = overlay.querySelector('iframe');
-      if (iframe) iframe.src = '';
+      const media = overlay.querySelector('iframe, video');
+      if (media) media.remove();
       overlay.classList.remove('is-open');
     }
 
