@@ -1174,35 +1174,6 @@
     padding: 96px 0;
   }
 
-  /* ── Toggle (preview only — remove before GHL deployment) ── */
-  .if-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 48px;
-  }
-
-  .if-toggle-btn {
-    padding: 8px 20px;
-    border-radius: var(--radius-pill);
-    font-family: var(--font-body);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    border: 1.5px solid var(--border);
-    background: transparent;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .if-toggle-btn.is-active {
-    background: var(--navy);
-    border-color: var(--navy);
-    color: #fff;
-  }
-
-  #if-option-b { display: none; }
 
   /* ── OPTION A: Auto-cycling features ── */
   #if-option-a {
@@ -1312,91 +1283,9 @@
     transition: opacity 0.3s ease;
   }
 
-  /* ── OPTION B: Hover slideshow ── */
-  #if-option-b {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    align-items: start;
-  }
-
-  .if-slide-list { display: flex; flex-direction: column; }
-
-  .if-slide-item {
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-    cursor: default;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .if-slide-item:first-child { border-top: 1px solid var(--border); }
-
-  .if-slide-title {
-    font-family: var(--font-headline);
-    font-size: clamp(1.25rem, 2.5vw, 2rem);
-    font-weight: 700;
-    color: var(--dark);
-    letter-spacing: -0.02em;
-    overflow: hidden;
-    height: 1.2em;
-    position: relative;
-  }
-
-  /* Character-by-character slide animation on hover */
-  .if-slide-item:hover .if-slide-title-inner {
-    animation: slide-title-out 0.25s ease forwards;
-  }
-
-  @keyframes slide-title-out {
-    to { transform: translateY(-100%); opacity: 0; }
-  }
-
-  .if-slide-title-inner {
-    display: block;
-    transition: transform 0.25s ease, opacity 0.25s ease;
-  }
-
-  /* Right: image reveal */
-  .if-slide-image-col {
-    position: sticky;
-    top: 120px;
-  }
-
-  .if-slide-image-wrap {
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    background: var(--dark);
-    clip-path: inset(100% 0 0 0);
-    transition: clip-path 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .if-slide-item:hover ~ .if-slide-image-col .if-slide-image-wrap,
-  .if-slide-image-wrap.is-revealed {
-    clip-path: inset(0% 0 0 0);
-  }
-
-  .if-slide-image-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
   @media (max-width: 900px) {
-    #if-option-a,
-    #if-option-b {
-      grid-template-columns: 1fr;
-    }
-
-    .if-image-wrap,
-    .if-slide-image-col {
-      display: none; /* Hide right image col on mobile for both options */
-    }
+    #if-option-a { grid-template-columns: 1fr; }
+    .if-image-wrap { display: none; }
   }
 </style>
 
@@ -1408,18 +1297,13 @@
       <p>Everything your team needs to capture, nurture, and close — in one intelligent platform.</p>
     </div>
 
-    <!-- Preview-only toggle — remove before GHL deployment -->
-    <div class="if-toggle" id="if-toggle">
-      <button class="if-toggle-btn is-active" data-option="a">Option A — Auto-Cycling</button>
-      <button class="if-toggle-btn" data-option="b">Option B — Hover Slideshow</button>
-    </div>
   </div>
 
   <!-- ── Option A: Auto-cycling ── -->
   <div id="if-option-a">
 
     <div class="if-list" id="feature-cycle">
-      <div class="feature-item is-active" data-img="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop">
+      <div class="feature-item is-active" data-img="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&h=600&fit=crop">
         <div class="feature-item-icon is-active-icon">1</div>
         <div class="feature-item-text">
           <div class="feature-item-title">7-Channel Automated Follow Up</div>
@@ -1428,7 +1312,7 @@
         <div class="feature-progress"><div class="feature-progress-bar"></div></div>
       </div>
 
-      <div class="feature-item" data-img="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop">
+      <div class="feature-item" data-img="https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=800&h=600&fit=crop">
         <div class="feature-item-icon">2</div>
         <div class="feature-item-text">
           <div class="feature-item-title">AI Appointment Booking</div>
@@ -1437,7 +1321,7 @@
         <div class="feature-progress"><div class="feature-progress-bar"></div></div>
       </div>
 
-      <div class="feature-item" data-img="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=600&fit=crop">
+      <div class="feature-item" data-img="https://images.unsplash.com/photo-1516387938699-a927021e26f4?w=800&h=600&fit=crop">
         <div class="feature-item-icon">3</div>
         <div class="feature-item-text">
           <div class="feature-item-title">Live Call Transfer</div>
@@ -1446,7 +1330,7 @@
         <div class="feature-progress"><div class="feature-progress-bar"></div></div>
       </div>
 
-      <div class="feature-item" data-img="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&h=600&fit=crop">
+      <div class="feature-item" data-img="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop">
         <div class="feature-item-icon">4</div>
         <div class="feature-item-text">
           <div class="feature-item-title">Communication Center</div>
@@ -1455,7 +1339,7 @@
         <div class="feature-progress"><div class="feature-progress-bar"></div></div>
       </div>
 
-      <div class="feature-item" data-img="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop">
+      <div class="feature-item" data-img="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop">
         <div class="feature-item-icon">5</div>
         <div class="feature-item-text">
           <div class="feature-item-title">Mobile App</div>
@@ -1464,7 +1348,7 @@
         <div class="feature-progress"><div class="feature-progress-bar"></div></div>
       </div>
 
-      <div class="feature-item" data-img="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800&h=600&fit=crop">
+      <div class="feature-item" data-img="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop">
         <div class="feature-item-icon">6</div>
         <div class="feature-item-text">
           <div class="feature-item-title">Team Management</div>
@@ -1473,7 +1357,7 @@
         <div class="feature-progress"><div class="feature-progress-bar"></div></div>
       </div>
 
-      <div class="feature-item" data-img="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&h=600&fit=crop">
+      <div class="feature-item" data-img="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop">
         <div class="feature-item-icon">7</div>
         <div class="feature-item-text">
           <div class="feature-item-title">Lead Round Robin</div>
@@ -1491,7 +1375,7 @@
         <div class="feature-progress"><div class="feature-progress-bar"></div></div>
       </div>
 
-      <div class="feature-item" data-img="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop">
+      <div class="feature-item" data-img="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop">
         <div class="feature-item-icon">9</div>
         <div class="feature-item-text">
           <div class="feature-item-title">Seamless Integration</div>
@@ -1504,7 +1388,7 @@
     <div class="if-image-wrap">
       <img
         class="feature-image"
-        src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
+        src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&h=600&fit=crop"
         alt="Feature screenshot"
         width="800"
         height="600"
@@ -1513,49 +1397,7 @@
     </div>
   </div>
 
-  <!-- ── Option B: Hover slideshow ── -->
-  <div id="if-option-b">
-    <div class="if-slide-list">
-      <div class="if-slide-item"><div class="if-slide-title"><span class="if-slide-title-inner">7-Channel Automated Follow Up</span></div></div>
-      <div class="if-slide-item"><div class="if-slide-title"><span class="if-slide-title-inner">AI Appointment Booking</span></div></div>
-      <div class="if-slide-item"><div class="if-slide-title"><span class="if-slide-title-inner">Live Call Transfer</span></div></div>
-      <div class="if-slide-item"><div class="if-slide-title"><span class="if-slide-title-inner">Communication Center</span></div></div>
-      <div class="if-slide-item"><div class="if-slide-title"><span class="if-slide-title-inner">Mobile App</span></div></div>
-      <div class="if-slide-item"><div class="if-slide-title"><span class="if-slide-title-inner">Team Management</span></div></div>
-      <div class="if-slide-item"><div class="if-slide-title"><span class="if-slide-title-inner">Lead Round Robin</span></div></div>
-      <div class="if-slide-item"><div class="if-slide-title"><span class="if-slide-title-inner">Advanced Reporting</span></div></div>
-      <div class="if-slide-item"><div class="if-slide-title"><span class="if-slide-title-inner">Seamless Integration</span></div></div>
-    </div>
-    <div class="if-slide-image-col">
-      <div class="if-slide-image-wrap is-revealed">
-        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="Feature preview" width="800" height="600" loading="lazy" />
-      </div>
-    </div>
-  </div>
 </section>
-
-<script>
-  // Option A/B toggle (preview only)
-  (function () {
-    var toggle = document.getElementById('if-toggle');
-    if (!toggle) return;
-
-    toggle.addEventListener('click', function (e) {
-      var btn = e.target.closest('.if-toggle-btn');
-      if (!btn) return;
-
-      var option = btn.dataset.option;
-      document.querySelectorAll('.if-toggle-btn').forEach(function (b) {
-        b.classList.toggle('is-active', b === btn);
-      });
-
-      var optA = document.getElementById('if-option-a');
-      var optB = document.getElementById('if-option-b');
-      if (optA) optA.style.display = option === 'a' ? 'grid' : 'none';
-      if (optB) optB.style.display = option === 'b' ? 'grid' : 'none';
-    });
-  })();
-</script>
 <!-- ============================================================
   COMPASS — Section 07: Platforms Replaced
   GHL: paste into Custom Code block.
