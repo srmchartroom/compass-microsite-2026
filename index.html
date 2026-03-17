@@ -1119,13 +1119,13 @@
     <div
       class="po-screenshot-wrap"
       id="po-screenshot-wrap"
-      data-video-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+      data-video-src="https://assets.cdn.filesafe.space/5KNcJcblwftDgsKpBJfp/media/69b96cd271488924bce6045b.mp4"
       role="button"
       tabindex="0"
       aria-label="Watch the Compass platform tour"
     >
       <img
-        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1280&h=720&fit=crop"
+        src="https://assets.cdn.filesafe.space/5KNcJcblwftDgsKpBJfp/media/69b96cbd44bd95259bd9d393.jpg"
         alt="Compass CRM dashboard"
         width="1280"
         height="720"
@@ -1148,7 +1148,10 @@
     if (!wrap) return;
     var videoSrc = wrap.getAttribute('data-video-src');
     function playVideo() {
-      wrap.innerHTML = '<iframe src="' + videoSrc + '" allow="autoplay; encrypted-media" allowfullscreen title="Compass platform overview"></iframe>';
+      var isMP4 = videoSrc.match(/\.mp4(\?|$)/i);
+      wrap.innerHTML = isMP4
+        ? '<video src="' + videoSrc + '" controls autoplay playsinline style="width:100%;height:100%;display:block;background:#000;"></video>'
+        : '<iframe src="' + videoSrc + '" allow="autoplay; encrypted-media" allowfullscreen title="Compass platform overview" style="width:100%;height:100%;border:none;display:block;"></iframe>';
       wrap.style.cursor = 'default';
     }
     wrap.addEventListener('click', playVideo);
