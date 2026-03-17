@@ -1,0 +1,157 @@
+<!-- ============================================================
+  COMPASS — Section 01: Announcement Bar
+  GHL: paste into Custom Code block ABOVE the nav section.
+  Requires: global.css loaded site-wide.
+  Dependencies: gear-spin and shimmer @keyframes defined in global.css (Chunk 1).
+  ============================================================ -->
+
+<style>
+  #announcement-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: var(--navy);
+    overflow: hidden;
+    max-height: 44px;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+  }
+
+  .ann-bar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
+    position: relative;
+  }
+
+  /* Shimmer sweep across the bar */
+  .ann-bar-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(133, 154, 193, 0.2) 40%,
+      rgba(255, 255, 255, 0.12) 50%,
+      rgba(133, 154, 193, 0.2) 60%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+    pointer-events: none;
+  }
+
+  .ann-bar-text {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.02em;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ann-bar-link {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--light-blue);
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+    transition: color 0.2s ease;
+  }
+
+  .ann-bar-link:hover {
+    color: #fff;
+  }
+
+  /* Gear icons — hidden by default, animate in on bar hover */
+  .ann-gear {
+    position: relative;
+    z-index: 1;
+    font-size: 0.875rem;
+    opacity: 0;
+    transform: translateX(-12px) rotate(0deg);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .ann-gear-right {
+    transform: translateX(12px) rotate(0deg);
+  }
+
+  #announcement-bar:hover .ann-gear {
+    opacity: 0.6;
+    transform: translateX(0) rotate(0deg);
+    animation: gear-spin 3s linear infinite;
+  }
+
+  #announcement-bar:hover .ann-gear-right {
+    animation-direction: reverse;
+  }
+
+  .ann-dismiss {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    z-index: 1;
+    transition: color 0.2s ease;
+  }
+
+  .ann-dismiss:hover {
+    color: rgba(255, 255, 255, 0.9);
+  }
+</style>
+
+<div id="announcement-bar">
+  <div class="ann-bar-inner">
+    <span class="ann-gear" aria-hidden="true">⚙</span>
+    <span class="ann-bar-text">New: AI Appointment Booking is now live —</span>
+    <a class="ann-bar-link" href="#platform-overview">Learn More →</a>
+    <span class="ann-gear ann-gear-right" aria-hidden="true">⚙</span>
+    <button class="ann-dismiss" data-dismiss-bar aria-label="Dismiss announcement">✕</button>
+  </div>
+</div>
+
+<script>
+  // Announcement bar: check sessionStorage on load; wire dismiss button
+  (function () {
+    var bar = document.getElementById('announcement-bar');
+    if (!bar) return;
+
+    // Auto-hide if already dismissed in this session
+    if (sessionStorage.getItem('compass-bar-dismissed') === '1') {
+      bar.style.display = 'none';
+      document.body.classList.add('bar-dismissed');
+      return;
+    }
+
+    var btn = bar.querySelector('[data-dismiss-bar]');
+    if (!btn) return;
+
+    btn.addEventListener('click', function () {
+      bar.style.transition = 'max-height 0.3s ease, opacity 0.3s ease';
+      bar.style.maxHeight = '0px';
+      bar.style.opacity = '0';
+      setTimeout(function () {
+        bar.style.display = 'none';
+        document.body.classList.add('bar-dismissed');
+      }, 320);
+      sessionStorage.setItem('compass-bar-dismissed', '1');
+    });
+  })();
+</script>
