@@ -282,7 +282,7 @@
     if (!container) return;
 
     const items = container.querySelectorAll('.feature-item');
-    const image = container.querySelector('.feature-image');
+    const image = container.parentElement ? container.parentElement.querySelector('.feature-image') : null;
     const DURATION = 10000;
     let current = 0;
     let timer = null;
