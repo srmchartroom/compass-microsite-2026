@@ -1,0 +1,482 @@
+<!-- ============================================================
+  COMPASS — Section 10: Testimonials
+  GHL: paste into Custom Code block.
+  Requires: global.css, global.js loaded site-wide.
+  global.js provides: initVideoModal() for video thumbnails.
+  Note: compass-video-modal div is defined ONCE in section 05.
+    If section 05 is not on the page, duplicate the modal div here.
+  ============================================================ -->
+
+<style>
+  #testimonials {
+    background: var(--white);
+    padding: 96px 0;
+    overflow: hidden;
+  }
+
+  /* ── Video testimonials row ── */
+  .test-video-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto 64px;
+    padding: 0 24px;
+  }
+
+  .test-video-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    aspect-ratio: 16 / 9;
+    background: var(--dark);
+  }
+
+  .test-video-card:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .test-video-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: opacity 0.25s ease;
+  }
+
+  .test-video-card:hover img {
+    opacity: 0.65;
+  }
+
+  .test-video-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .test-play-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+
+  .test-video-card:hover .test-play-icon {
+    transform: scale(1.1);
+  }
+
+  .test-play-icon svg {
+    width: 22px;
+    height: 22px;
+    color: var(--navy);
+    margin-left: 3px;
+  }
+
+  .test-video-meta {
+    text-align: center;
+  }
+
+  .test-video-name {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .test-video-role {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ── Infinite scroll columns ── */
+  .test-cols-wrapper {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 0 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+    /* Fade top and bottom */
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    height: 600px;
+    overflow: hidden;
+  }
+
+  .test-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Duplicate content for seamless loop */
+  .test-col-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: column-scroll linear infinite;
+    will-change: transform;
+  }
+
+  .test-col:nth-child(1) .test-col-inner { animation-duration: 15s; }
+  .test-col:nth-child(2) .test-col-inner { animation-duration: 19s; animation-direction: reverse; }
+  .test-col:nth-child(3) .test-col-inner { animation-duration: 17s; }
+
+  /* Hide col 2 on mobile, col 3 on tablet */
+  @media (max-width: 900px) {
+    .test-col:nth-child(3) { display: none; }
+    .test-cols-wrapper { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .test-col:nth-child(2) { display: none; }
+    .test-cols-wrapper { grid-template-columns: 1fr; }
+    .test-video-row { grid-template-columns: 1fr; }
+  }
+
+  /* Testimonial card */
+  .test-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+  }
+
+  .test-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .test-quote {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--dark);
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  .test-quote::before {
+    content: '\201C';
+    font-size: 2rem;
+    color: var(--light-blue);
+    line-height: 0;
+    vertical-align: -0.6em;
+    margin-right: 4px;
+  }
+
+  .test-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .test-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--light-blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-headline);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .test-name {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--dark);
+  }
+
+  .test-role {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+</style>
+
+<section id="testimonials" class="compass-section" style="padding:96px 0;">
+  <div class="compass-container">
+    <div class="compass-section-header" data-animate>
+      <div class="compass-badge" style="margin:0 auto 16px;">Customer Stories</div>
+      <h2>What Our Customers Say</h2>
+      <p>Businesses just like yours are closing more deals with Compass.</p>
+    </div>
+  </div>
+
+  <!-- Video testimonials -->
+  <div class="test-video-row" data-animate>
+    <div
+      class="test-video-card"
+      data-video-trigger="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+      role="button"
+      tabindex="0"
+      aria-label="Watch Suzy Crawford testimonial"
+    >
+      <img
+        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=450&fit=crop"
+        alt="Suzy Crawford testimonial thumbnail"
+        loading="lazy"
+      />
+      <div class="test-video-play">
+        <div class="test-play-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <div class="test-video-meta">
+          <div class="test-video-name">Suzy Crawford</div>
+          <div class="test-video-role">CEO, Crawford Digital Media</div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="test-video-card"
+      data-video-trigger="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+      role="button"
+      tabindex="0"
+      aria-label="Watch Jonathan Kroll testimonial"
+    >
+      <img
+        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=450&fit=crop"
+        alt="Jonathan Kroll testimonial thumbnail"
+        loading="lazy"
+      />
+      <div class="test-video-play">
+        <div class="test-play-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <div class="test-video-meta">
+          <div class="test-video-name">Jonathan Kroll</div>
+          <div class="test-video-role">Executive Director</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3-column infinite scroll cards -->
+  <div class="test-cols-wrapper">
+
+    <!-- Column 1 (15s) -->
+    <div class="test-col">
+      <div class="test-col-inner">
+        <!-- Set 1 -->
+        <div class="test-card">
+          <p class="test-quote">I highly recommend Chart Room to any business looking to elevate their marketing efforts. It truly delivers results.</p>
+          <div class="test-author">
+            <div class="test-avatar">VD</div>
+            <div>
+              <div class="test-name">Vaidehi Desai</div>
+              <div class="test-role">D&amp;S Entertainment</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <p class="test-quote">I wholeheartedly recommend Chart Room to anyone seeking top-tier expertise, prompt delivery, and a collaborative experience that goes above and beyond.</p>
+          <div class="test-author">
+            <div class="test-avatar">BV</div>
+            <div>
+              <div class="test-name">Brooke Vulinovich</div>
+              <div class="test-role">Social Club Community</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <p class="test-quote">Chart Room hooked me up with an amazing onboarding package! The automations and templates made it easy to just plug and play — saved me so much time.</p>
+          <div class="test-author">
+            <div class="test-avatar">LR</div>
+            <div>
+              <div class="test-name">Lexi Rector</div>
+              <div class="test-role">Archer Growth Marketing</div>
+            </div>
+          </div>
+        </div>
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <div class="test-card">
+          <p class="test-quote">I highly recommend Chart Room to any business looking to elevate their marketing efforts. It truly delivers results.</p>
+          <div class="test-author">
+            <div class="test-avatar">VD</div>
+            <div>
+              <div class="test-name">Vaidehi Desai</div>
+              <div class="test-role">D&amp;S Entertainment</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <p class="test-quote">I wholeheartedly recommend Chart Room to anyone seeking top-tier expertise, prompt delivery, and a collaborative experience that goes above and beyond.</p>
+          <div class="test-author">
+            <div class="test-avatar">BV</div>
+            <div>
+              <div class="test-name">Brooke Vulinovich</div>
+              <div class="test-role">Social Club Community</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <p class="test-quote">Chart Room hooked me up with an amazing onboarding package! The automations and templates made it easy to just plug and play — saved me so much time.</p>
+          <div class="test-author">
+            <div class="test-avatar">LR</div>
+            <div>
+              <div class="test-name">Lexi Rector</div>
+              <div class="test-role">Archer Growth Marketing</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 2 (19s reverse — duplicated content per spec) -->
+    <div class="test-col">
+      <div class="test-col-inner">
+        <div class="test-card">
+          <p class="test-quote">Chart Room hooked me up with an amazing onboarding package! The automations and templates made it easy to just plug and play — saved me so much time.</p>
+          <div class="test-author">
+            <div class="test-avatar">LR</div>
+            <div>
+              <div class="test-name">Lexi Rector</div>
+              <div class="test-role">Archer Growth Marketing</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <p class="test-quote">I highly recommend Chart Room to any business looking to elevate their marketing efforts. It truly delivers results.</p>
+          <div class="test-author">
+            <div class="test-avatar">VD</div>
+            <div>
+              <div class="test-name">Vaidehi Desai</div>
+              <div class="test-role">D&amp;S Entertainment</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <p class="test-quote">I wholeheartedly recommend Chart Room to anyone seeking top-tier expertise, prompt delivery, and a collaborative experience that goes above and beyond.</p>
+          <div class="test-author">
+            <div class="test-avatar">BV</div>
+            <div>
+              <div class="test-name">Brooke Vulinovich</div>
+              <div class="test-role">Social Club Community</div>
+            </div>
+          </div>
+        </div>
+        <!-- Duplicate -->
+        <div class="test-card">
+          <p class="test-quote">Chart Room hooked me up with an amazing onboarding package! The automations and templates made it easy to just plug and play — saved me so much time.</p>
+          <div class="test-author">
+            <div class="test-avatar">LR</div>
+            <div>
+              <div class="test-name">Lexi Rector</div>
+              <div class="test-role">Archer Growth Marketing</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <p class="test-quote">I highly recommend Chart Room to any business looking to elevate their marketing efforts. It truly delivers results.</p>
+          <div class="test-author">
+            <div class="test-avatar">VD</div>
+            <div>
+              <div class="test-name">Vaidehi Desai</div>
+              <div class="test-role">D&amp;S Entertainment</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <p class="test-quote">I wholeheartedly recommend Chart Room to anyone seeking top-tier expertise, prompt delivery, and a collaborative experience that goes above and beyond.</p>
+          <div class="test-author">
+            <div class="test-avatar">BV</div>
+            <div>
+              <div class="test-name">Brooke Vulinovich</div>
+              <div class="test-role">Social Club Community</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 3 (17s — duplicated content per spec) -->
+    <div class="test-col">
+      <div class="test-col-inner">
+        <div class="test-card">
+          <p class="test-quote">I wholeheartedly recommend Chart Room to anyone seeking top-tier expertise, prompt delivery, and a collaborative experience that goes above and beyond.</p>
+          <div class="test-author">
+            <div class="test-avatar">BV</div>
+            <div>
+              <div class="test-name">Brooke Vulinovich</div>
+              <div class="test-role">Social Club Community</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <p class="test-quote">Chart Room hooked me up with an amazing onboarding package! The automations and templates made it easy to just plug and play — saved me so much time.</p>
+          <div class="test-author">
+            <div class="test-avatar">LR</div>
+            <div>
+              <div class="test-name">Lexi Rector</div>
+              <div class="test-role">Archer Growth Marketing</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <p class="test-quote">I highly recommend Chart Room to any business looking to elevate their marketing efforts. It truly delivers results.</p>
+          <div class="test-author">
+            <div class="test-avatar">VD</div>
+            <div>
+              <div class="test-name">Vaidehi Desai</div>
+              <div class="test-role">D&amp;S Entertainment</div>
+            </div>
+          </div>
+        </div>
+        <!-- Duplicate -->
+        <div class="test-card">
+          <p class="test-quote">I wholeheartedly recommend Chart Room to anyone seeking top-tier expertise, prompt delivery, and a collaborative experience that goes above and beyond.</p>
+          <div class="test-author">
+            <div class="test-avatar">BV</div>
+            <div>
+              <div class="test-name">Brooke Vulinovich</div>
+              <div class="test-role">Social Club Community</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <p class="test-quote">Chart Room hooked me up with an amazing onboarding package! The automations and templates made it easy to just plug and play — saved me so much time.</p>
+          <div class="test-author">
+            <div class="test-avatar">LR</div>
+            <div>
+              <div class="test-name">Lexi Rector</div>
+              <div class="test-role">Archer Growth Marketing</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <p class="test-quote">I highly recommend Chart Room to any business looking to elevate their marketing efforts. It truly delivers results.</p>
+          <div class="test-author">
+            <div class="test-avatar">VD</div>
+            <div>
+              <div class="test-name">Vaidehi Desai</div>
+              <div class="test-role">D&amp;S Entertainment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
