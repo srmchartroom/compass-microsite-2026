@@ -11,6 +11,8 @@
     left: 0;
     right: 0;
     z-index: 100;
+    background: #fff;
+    box-shadow: 0 1px 0 rgba(31, 53, 91, 0.08);
     transition: top 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
   }
 
@@ -65,7 +67,7 @@
     font-family: var(--font-body);
     font-size: 0.875rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--navy);
     text-decoration: none;
     position: relative;
     transition: color 0.2s ease;
@@ -78,16 +80,29 @@
     left: 0;
     width: 0;
     height: 1.5px;
-    background: var(--light-blue);
+    background: var(--blue);
     transition: width 0.25s ease;
   }
 
   .nav-links a:hover {
-    color: #fff;
+    color: var(--blue);
   }
 
   .nav-links a:hover::after {
     width: 100%;
+  }
+
+  /* Scrolled state — white links on dark background */
+  #compass-nav.scrolled .nav-links a {
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  #compass-nav.scrolled .nav-links a:hover {
+    color: #fff;
+  }
+
+  #compass-nav.scrolled .nav-links a::after {
+    background: var(--light-blue);
   }
 
   /* Nav CTA — uses the shared .compass-btn-moving-border utility from global.css.
@@ -112,9 +127,13 @@
     display: block;
     width: 22px;
     height: 2px;
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--navy);
     border-radius: 2px;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    transition: transform 0.25s ease, opacity 0.25s ease, background 0.3s ease;
+  }
+
+  #compass-nav.scrolled #nav-hamburger span {
+    background: rgba(255, 255, 255, 0.8);
   }
 
   /* Mobile drawer */
@@ -231,6 +250,22 @@
     </button>
   </div>
 </nav>
+
+<script>
+  // Logo swap: dark SVG on white nav → light PNG when nav goes dark on scroll
+  (function () {
+    var logoImg = document.querySelector('#compass-nav .nav-logo img');
+    if (!logoImg) return;
+    var darkSrc = 'https://assets.cdn.filesafe.space/5KNcJcblwftDgsKpBJfp/media/68558801ac9458168baee31e.svg';
+    var lightSrc = 'https://assets.cdn.filesafe.space/5KNcJcblwftDgsKpBJfp/media/685588248b2950e5056f625d.png';
+    function updateLogo() {
+      var scrolled = window.scrollY > 60;
+      logoImg.src = scrolled ? lightSrc : darkSrc;
+    }
+    window.addEventListener('scroll', updateLogo, { passive: true });
+    updateLogo();
+  })();
+</script>
 
 <!-- Mobile drawer -->
 <div id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">

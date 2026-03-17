@@ -16,7 +16,7 @@
   --text-muted:  #5a7090;
   --border:      rgba(61, 96, 160, 0.15);
 
-  --font-headline: 'Bricolage Grotesque', sans-serif;
+  --font-headline: 'Montserrat', sans-serif;
   --font-body:     'Figtree', sans-serif;
 
   --radius-sm:  6px;
@@ -293,15 +293,17 @@ p {
   padding: 3px;
   border-radius: var(--radius-md);
   background: linear-gradient(
-    var(--angle, 0deg),
-    var(--navy) 0%,
-    var(--blue) 25%,
-    var(--light-blue) 50%,
-    var(--blue) 75%,
-    var(--navy) 100%
+    90deg,
+    #1f355b 0%,
+    #3d60a0 22%,
+    #c0d4ff 44%,
+    #ffffff 50%,
+    #c0d4ff 56%,
+    #3d60a0 78%,
+    #1f355b 100%
   );
   background-size: 300% 300%;
-  animation: moving-border 4s ease infinite;
+  animation: moving-border 2.5s linear infinite;
   text-decoration: none;
   cursor: pointer;
 }
