@@ -1,0 +1,224 @@
+<!-- ============================================================
+  COMPASS — Section 12: FAQ
+  GHL: paste into Custom Code block.
+  Requires: global.css, global.js loaded site-wide.
+  global.js provides: initAccordion() — watches #faq-accordion,
+    toggles .is-open on .faq-item, sets .faq-body maxHeight.
+  ============================================================ -->
+
+<style>
+  #faq {
+    background: #fff;
+    padding: 96px 0;
+  }
+
+  .faq-list {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .faq-item:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .faq-trigger {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 22px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.2s ease;
+  }
+
+  .faq-trigger:hover {
+    color: var(--blue);
+  }
+
+  .faq-trigger-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--light-blue);
+    flex-shrink: 0;
+  }
+
+  .faq-trigger-text {
+    flex: 1;
+    font-family: var(--font-headline);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--dark);
+    letter-spacing: -0.01em;
+    transition: color 0.2s ease;
+  }
+
+  .faq-trigger:hover .faq-trigger-text {
+    color: var(--blue);
+  }
+
+  .faq-chevron {
+    width: 18px;
+    height: 18px;
+    color: var(--light-blue);
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item.is-open .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Answer body — controlled by JS maxHeight */
+  .faq-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .faq-body-inner {
+    padding: 0 34px 24px;
+    position: relative;
+  }
+
+  .faq-answer {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* MessageCircle icon in corner */
+  .faq-body-icon {
+    position: absolute;
+    bottom: 16px;
+    right: 0;
+    width: 18px;
+    height: 18px;
+    color: rgba(133,154,193,0.35);
+  }
+</style>
+
+<section id="faq" class="compass-section" style="padding:96px 0;">
+  <div class="compass-container">
+    <div class="compass-section-header" data-animate>
+      <div class="compass-badge" style="margin:0 auto 16px;">FAQ</div>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+
+    <div class="faq-list" id="faq-accordion">
+
+      <div class="faq-item" data-animate data-animate-delay="0ms">
+        <button class="faq-trigger">
+          <!-- HelpCircle icon -->
+          <svg class="faq-trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span class="faq-trigger-text">What platforms and software does Compass replace?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            <p class="faq-answer">Compass replaces a wide range of standalone tools by consolidating them into one platform: calendaring (Calendly), email marketing (Mailchimp), CRM and pipeline management (HubSpot, Salesforce), funnel builders (ClickFunnels), SMS and calling (Twilio), automation workflows (ActiveCampaign), and more. Most businesses save thousands per year by switching.</p>
+            <svg class="faq-body-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-animate data-animate-delay="60ms">
+        <button class="faq-trigger">
+          <svg class="faq-trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span class="faq-trigger-text">What kind of support do you provide?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            <p class="faq-answer">All Compass plans include 24/7 email and live chat support with an average response time of 0–3 minutes. You'll also get access to guided onboarding tours, a full tutorial library, and a dedicated Chart Room success team to help you get up and running fast.</p>
+            <svg class="faq-body-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-animate data-animate-delay="120ms">
+        <button class="faq-trigger">
+          <svg class="faq-trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span class="faq-trigger-text">How do I get started?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            <p class="faq-answer">Simply click any "Get Started" button to choose your plan and create your account. You can also schedule a free demo with our team — we'll walk you through the platform, answer your questions, and help you see exactly how Compass fits your business. White-glove onboarding is included with every plan.</p>
+            <svg class="faq-body-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-animate data-animate-delay="180ms">
+        <button class="faq-trigger">
+          <svg class="faq-trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span class="faq-trigger-text">How secure is my customer data?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            <p class="faq-answer">Compass is fully compliant with applicable data privacy laws and has maintained rigorous data security practices since 2021. All accounts include two-factor authentication, and customer data is hosted off-site on enterprise-grade infrastructure with regular security audits.</p>
+            <svg class="faq-body-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-animate data-animate-delay="240ms">
+        <button class="faq-trigger">
+          <svg class="faq-trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span class="faq-trigger-text">How does your automation work?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            <p class="faq-answer">Compass runs SMART campaigns across SMS, Email, Web Chat, Phone, and Calendar — all on autopilot. You build your workflows once using our visual automation builder, then let the system engage leads at the right time on the right channel. Average response rates reach 80% with multi-channel follow-up sequences.</p>
+            <svg class="faq-body-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-animate data-animate-delay="300ms">
+        <button class="faq-trigger">
+          <svg class="faq-trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span class="faq-trigger-text">Can I cancel my account at any time?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            <p class="faq-answer">Yes. Compass has no long-term contracts. You can cancel your account at any time — no penalties, no questions asked. We're confident that once you see the results, you'll want to stay.</p>
+            <svg class="faq-body-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-animate data-animate-delay="360ms">
+        <button class="faq-trigger">
+          <svg class="faq-trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span class="faq-trigger-text">What platforms do you integrate with?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body">
+          <div class="faq-body-inner">
+            <p class="faq-answer">Compass natively integrates with Stripe, QuickBooks, Facebook, Instagram, LinkedIn, TikTok, Google, and Zapier. Through Zapier, you can connect Compass to 2,000+ additional tools — meaning it fits into virtually any existing tech stack.</p>
+            <svg class="faq-body-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
