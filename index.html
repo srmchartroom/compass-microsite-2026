@@ -29,7 +29,7 @@
     left: 0;
     right: 0;
     z-index: 200;
-    background: var(--navy);
+    background: #04060B;
     overflow: hidden;
     max-height: 44px;
     transition: max-height 0.3s ease, opacity 0.3s ease;
@@ -137,8 +137,8 @@
 <div id="announcement-bar">
   <div class="ann-bar-inner">
     <span class="ann-gear" aria-hidden="true">⚙</span>
-    <span class="ann-bar-text">New: AI Appointment Booking is now live —</span>
-    <a class="ann-bar-link" href="#platform-overview">Learn More →</a>
+    <span class="ann-bar-text">Book your demos of Compass now</span>
+    <a class="ann-bar-link" href="#bottom-cta">→</a>
     <span class="ann-gear ann-gear-right" aria-hidden="true">⚙</span>
     <button class="ann-dismiss" data-dismiss-bar aria-label="Dismiss announcement">✕</button>
   </div>
@@ -186,6 +186,8 @@
     left: 0;
     right: 0;
     z-index: 100;
+    background: #fff;
+    box-shadow: 0 1px 0 rgba(31, 53, 91, 0.08);
     transition: top 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
   }
 
@@ -240,7 +242,7 @@
     font-family: var(--font-body);
     font-size: 0.875rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--navy);
     text-decoration: none;
     position: relative;
     transition: color 0.2s ease;
@@ -253,12 +255,29 @@
     left: 0;
     width: 0;
     height: 1.5px;
-    background: var(--light-blue);
+    background: var(--blue);
     transition: width 0.25s ease;
   }
 
   .nav-links a:hover {
+    color: var(--blue);
+  }
+
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+
+  /* Scrolled state — white links on dark background */
+  #compass-nav.scrolled .nav-links a {
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  #compass-nav.scrolled .nav-links a:hover {
     color: #fff;
+  }
+
+  #compass-nav.scrolled .nav-links a::after {
+    background: var(--light-blue);
   }
 
   .nav-links a:hover::after {
@@ -287,9 +306,13 @@
     display: block;
     width: 22px;
     height: 2px;
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--navy);
     border-radius: 2px;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    transition: transform 0.25s ease, opacity 0.25s ease, background 0.3s ease;
+  }
+
+  #compass-nav.scrolled #nav-hamburger span {
+    background: rgba(255, 255, 255, 0.8);
   }
 
   /* Mobile drawer */
@@ -420,6 +443,22 @@
   </ul>
 </div>
 
+<script>
+  // Logo swap: dark SVG on white nav → light PNG when nav goes dark on scroll
+  (function () {
+    var logoImg = document.querySelector('#compass-nav .nav-logo img');
+    if (!logoImg) return;
+    var darkSrc = 'https://assets.cdn.filesafe.space/5KNcJcblwftDgsKpBJfp/media/68558801ac9458168baee31e.svg';
+    var lightSrc = 'https://assets.cdn.filesafe.space/5KNcJcblwftDgsKpBJfp/media/685588248b2950e5056f625d.png';
+    function updateLogo() {
+      var scrolled = window.scrollY > 60;
+      logoImg.src = scrolled ? lightSrc : darkSrc;
+    }
+    window.addEventListener('scroll', updateLogo, { passive: true });
+    updateLogo();
+  })();
+</script>
+
 <!-- ============================================================
   COMPASS — Section 03: Hero
   GHL: paste into Custom Code block below nav.
@@ -436,16 +475,16 @@
     position: relative;
     overflow: hidden;
     background:
-      radial-gradient(ellipse at 60% 0%, rgba(61,96,160,0.35) 0%, transparent 55%),
-      radial-gradient(ellipse at 0% 90%, rgba(133,154,193,0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 0%, rgba(100,150,240,0.55) 0%, transparent 55%),
+      radial-gradient(ellipse at 0% 90%, rgba(133,154,193,0.45) 0%, transparent 50%),
       linear-gradient(
         135deg,
-        var(--navy) 0%,
-        #1a2e52 15%,
-        #1e3a6a 35%,
-        #243f78 55%,
-        #1a2e52 75%,
-        var(--dark) 100%
+        #243f78 0%,
+        #2a4e90 15%,
+        #2e5aaa 35%,
+        #3264bf 55%,
+        #2a4e90 75%,
+        #1f355b 100%
       );
     background-size: 400% 400%;
     animation: aurora-drift 60s ease infinite;
@@ -557,10 +596,10 @@
   /* Headline */
   .hero-headline {
     font-family: var(--font-headline);
-    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-size: clamp(4rem, 10vw, 8.5rem);
     font-weight: 900;
     line-height: 1.0;
-    letter-spacing: -0.04em;
+    letter-spacing: 8px;
     color: #fff;
     margin-bottom: 24px;
   }
@@ -685,14 +724,14 @@
         width="400"
         height="200"
       />
-      <div class="hero-badge">AI-Powered CRM &amp; Automation Platform</div>
+      <div class="hero-badge">AI-Powered CRM + Automation + Marketing + Sales Ops Platform</div>
       <h1 class="hero-headline">
         Convert More<br>
         <span class="accent">Leads</span><br>
         Into Sales
       </h1>
       <p class="hero-sub">
-        Chart Room helps you capture, nurture, and close leads on autopilot through
+        Compass helps you capture, nurture, and close leads on autopilot through
         SMS, Email, Live Chat, Phone Calls, and more.
       </p>
       <div class="hero-ctas">
