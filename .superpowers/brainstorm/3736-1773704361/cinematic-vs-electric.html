@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compass — Direction Comparison</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: sans-serif; background: #111; color: white; }
+
+  .wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+  }
+
+  /* ---- CINEMATIC ---- */
+  .cinematic {
+    background: #04060b;
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .cinematic:hover { border-color: #f1c765; }
+  .cinematic.selected { border-color: #f1c765; outline: 4px solid rgba(241,199,101,0.3); }
+
+  .cinematic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 110%, rgba(63,96,160,0.6) 0%, transparent 65%),
+      radial-gradient(ellipse at 80% 10%, rgba(31,53,91,0.4) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .cinematic::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  .cin-label {
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: rgba(241,199,101,0.6);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cin-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+  .cin-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cin-compass {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(241,199,101,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cin-compass-inner {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(241,199,101,0.7);
+  }
+  .cin-logo-text {
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    color: white;
+    text-transform: uppercase;
+  }
+  .cin-nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+  }
+  .cin-nav-cta {
+    padding: 8px 20px;
+    border: 1px solid rgba(241,199,101,0.4);
+    border-radius: 2px;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: rgba(241,199,101,0.85);
+    text-transform: uppercase;
+  }
+
+  .cin-hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    padding: 20px 0 40px;
+  }
+  .cin-eyebrow {
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: rgba(241,199,101,0.6);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cin-eyebrow::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: rgba(241,199,101,0.4);
+  }
+  .cin-headline {
+    font-size: 52px;
+    font-weight: 200;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .cin-headline strong {
+    font-weight: 700;
+    color: #f1c765;
+  }
+  .cin-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 36px;
+    letter-spacing: 0.3px;
+  }
+  .cin-ctas {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .cin-btn-primary {
+    padding: 14px 32px;
+    background: #1f355b;
+    border: 1px solid rgba(241,199,101,0.3);
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(241,199,101,0.9);
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .cin-btn-secondary {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .cin-stats {
+    display: flex;
+    gap: 32px;
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 28px;
+  }
+  .cin-stat-val {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f1c765;
+    letter-spacing: -1px;
+  }
+  .cin-stat-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* ---- ELECTRIC MINIMAL ---- */
+  .electric {
+    background: #ffffff;
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    color: #0d0d0d;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .electric:hover { border-color: #3d60a0; }
+  .electric.selected { border-color: #3d60a0; outline: 4px solid rgba(61,96,160,0.2); }
+
+  .elec-top-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1f355b, #3d60a0, #859ac1);
+  }
+
+  .elec-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+  .elec-logo {
+    font-size: 20px;
+    font-weight: 900;
+    color: #1f355b;
+    letter-spacing: -1.5px;
+  }
+  .elec-logo span {
+    color: #3d60a0;
+  }
+  .elec-nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+  .elec-nav-cta {
+    padding: 8px 20px;
+    background: #1f355b;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+  }
+
+  .elec-hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0 40px;
+  }
+  .elec-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    background: rgba(61,96,160,0.08);
+    border: 1px solid rgba(61,96,160,0.2);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #3d60a0;
+    margin-bottom: 24px;
+    width: fit-content;
+  }
+  .elec-badge::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #3d60a0;
+  }
+  .elec-headline {
+    font-size: 50px;
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -3px;
+    color: #0d0d0d;
+    margin-bottom: 20px;
+  }
+  .elec-headline .accent {
+    color: #3d60a0;
+  }
+  .elec-sub {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.65;
+    max-width: 380px;
+    margin-bottom: 36px;
+  }
+  .elec-ctas {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .elec-btn-primary {
+    padding: 14px 28px;
+    background: #1f355b;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+  }
+  .elec-btn-secondary {
+    padding: 14px 24px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    cursor: pointer;
+  }
+
+  .elec-stats {
+    display: flex;
+    gap: 32px;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 28px;
+  }
+  .elec-stat-val {
+    font-size: 30px;
+    font-weight: 900;
+    color: #1f355b;
+    letter-spacing: -2px;
+  }
+  .elec-stat-label {
+    font-size: 12px;
+    color: #9ca3af;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* Labels */
+  .direction-label {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    z-index: 10;
+  }
+  .cinematic .direction-label {
+    background: rgba(241,199,101,0.15);
+    color: rgba(241,199,101,0.9);
+    border: 1px solid rgba(241,199,101,0.3);
+  }
+  .electric .direction-label {
+    background: rgba(31,53,91,0.08);
+    color: #1f355b;
+    border: 1px solid rgba(31,53,91,0.2);
+  }
+
+  .select-hint {
+    text-align: center;
+    padding: 16px;
+    background: #1a1a1a;
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- CINEMATIC -->
+  <div class="cinematic" onclick="this.classList.toggle('selected')">
+    <div class="direction-label">A — Cinematic</div>
+
+    <div class="cin-nav">
+      <div class="cin-logo">
+        <div class="cin-compass"><div class="cin-compass-inner"></div></div>
+        <div class="cin-logo-text">Compass</div>
+      </div>
+      <div class="cin-nav-links">
+        <span>Features</span>
+        <span>Pricing</span>
+        <span>Login</span>
+      </div>
+      <div class="cin-nav-cta">Schedule Demo</div>
+    </div>
+
+    <div class="cin-hero">
+      <div class="cin-eyebrow">Chart Room Platform</div>
+      <div class="cin-headline">
+        Convert More<br><strong>Leads</strong> Into Sales
+      </div>
+      <div class="cin-sub">
+        Capture, nurture, and close leads on autopilot — SMS, Email, Calls, and more. All in one compass.
+      </div>
+      <div class="cin-ctas">
+        <div class="cin-btn-primary">Get Started — $197/mo</div>
+        <div class="cin-btn-secondary">Watch Overview</div>
+      </div>
+    </div>
+
+    <div class="cin-stats">
+      <div>
+        <div class="cin-stat-val">80%</div>
+        <div class="cin-stat-label">Response Rate</div>
+      </div>
+      <div>
+        <div class="cin-stat-val">7×</div>
+        <div class="cin-stat-label">Follow-up Channels</div>
+      </div>
+      <div>
+        <div class="cin-stat-val">24/7</div>
+        <div class="cin-stat-label">Automation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ELECTRIC MINIMAL -->
+  <div class="electric" onclick="this.classList.toggle('selected')">
+    <div class="elec-top-bar"></div>
+    <div class="direction-label">B — Electric Minimal</div>
+
+    <div class="elec-nav">
+      <div class="elec-logo">compass<span>.</span></div>
+      <div class="elec-nav-links">
+        <span>Features</span>
+        <span>Pricing</span>
+        <span>Login</span>
+      </div>
+      <div class="elec-nav-cta">Schedule Demo</div>
+    </div>
+
+    <div class="elec-hero">
+      <div class="elec-badge">AI-Powered CRM Platform</div>
+      <div class="elec-headline">
+        Convert More<br><span class="accent">Leads</span><br>Into Sales
+      </div>
+      <div class="elec-sub">
+        Capture, nurture, and close leads on autopilot — SMS, Email, Calls, and more. All in one place.
+      </div>
+      <div class="elec-ctas">
+        <div class="elec-btn-primary">Get Started — $197/mo</div>
+        <div class="elec-btn-secondary">Watch Overview</div>
+      </div>
+    </div>
+
+    <div class="elec-stats">
+      <div>
+        <div class="elec-stat-val">80%</div>
+        <div class="elec-stat-label">Response Rate</div>
+      </div>
+      <div>
+        <div class="elec-stat-val">7×</div>
+        <div class="elec-stat-label">Follow-up Channels</div>
+      </div>
+      <div>
+        <div class="elec-stat-val">24/7</div>
+        <div class="elec-stat-label">Automation</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="select-hint">Click either panel to select it · Tell me what you think in the terminal</div>
+
+<script>
+// send selection events
+document.querySelectorAll('.cinematic, .electric').forEach(el => {
+  el.addEventListener('click', () => {
+    const choice = el.classList.contains('cinematic') ? 'cinematic' : 'electric-minimal';
+    const selected = el.classList.contains('selected');
+    if (window.__companion) window.__companion.record({ type: 'click', choice, selected });
+  });
+});
+</script>
+</body>
+</html>

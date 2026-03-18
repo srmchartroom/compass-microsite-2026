@@ -1,0 +1,65 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"/c/Users/CRC ThinkStation/Desktop/compass-site\" && if [ -n \"$(git status --porcelain)\" ]; then git add -A && MSG=\"auto: $(git diff --cached --name-only | head -3 | tr '\\n' ' ')[$(date '+%Y-%m-%d %H:%M')]\" && git commit -m \"$MSG\" && git push origin master; fi 2>/dev/null || true",
+            "statusMessage": "Committing and pushing to GitHub..."
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp:*)",
+      "Bash(gh api:*)",
+      "Bash(mkdir:*)",
+      "Bash(infsh login:*)",
+      "Bash(npm install:*)",
+      "Bash(npx skills:*)",
+      "Bash(curl:*)",
+      "Bash(where infsh:*)",
+      "Bash(powershell -Command \"iwr https://cli.inference.sh -OutFile C:/Users/install.sh\" && sh /c/Users/install.sh)",
+      "Bash(powershell -Command \"iwr https://cli.inference.sh -OutFile C:/Temp/install.sh\" && sh /c/Temp/install.sh)",
+      "Bash(powershell -Command \"Invoke-WebRequest https://cli.inference.sh -SkipCertificateCheck -OutFile C:/Temp/install.sh\" && sh /c/Temp/install.sh)",
+      "Bash(pwsh --version 2>/dev/null || echo \"pwsh not found\")",
+      "Bash(sh /c/Temp/install.sh)",
+      "Bash(python3:*)",
+      "Bash(cd:*)",
+      "Bash(npm list:*)",
+      "Bash(git clone:*)",
+      "Bash(claude install:*)",
+      "Bash(find:*)",
+      "WebSearch",
+      "Bash(jq:*)",
+      "Bash(node:*)",
+      "Bash(npx:*)",
+      "Bash(USERPROFILE=\"C:/Users/CRC ThinkStation\" HOME=\"C:/Users/CRC ThinkStation\" npx @21st-dev/magic-mcp@latest init 2>&1)",
+      "Bash(npm view:*)",
+      "Bash(npm search:*)",
+      "Bash(mkdir -p /c/mcp)",
+      "Read(//c//**)",
+      "Bash(npm init:*)",
+      "Bash(vercel:*)",
+      "Bash(npm bin:*)",
+      "Bash(\"/c/Users/srmch/AppData/Roaming/npm/vercel\" --version 2>&1)",
+      "Bash(\"$HOME/bin/vercel\" --version 2>/dev/null || ./vercel --version 2>/dev/null || echo \"need path check\")",
+      "Bash(./vercel whoami:*)",
+      "Bash(ls:*)",
+      "mcp__claude_ai_Vercel__get_project",
+      "Read(//c/Users/CRC ThinkStation/Desktop/compass-site/$APPDATA/com.vercel.cli/**)",
+      "Read(//c/Users/CRC ThinkStation/Desktop/compass-site/$HOME/.local/share/com.vercel.cli/**)",
+      "Read(//c/Users/CRC ThinkStation/Desktop/compass-site/**)",
+      "WebFetch(domain:compass-os.ai)",
+      "mcp__claude_ai_Vercel__web_fetch_vercel_url",
+      "Bash(bash \"/c/Users/CRC ThinkStation/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.2/skills/brainstorming/scripts/start-server.sh\" --project-dir \"/c/Users/CRC ThinkStation/Desktop/compass-site\" 2>&1)",
+      "mcp__claude_ai_Vercel__list_deployments",
+      "mcp__claude_ai_Vercel__get_deployment",
+      "Skill(update-config)",
+      "Bash(git:*)"
+    ]
+  }
+}

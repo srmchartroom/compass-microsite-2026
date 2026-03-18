@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compass — Electric Refined</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+
+  .page {
+    flex: 1;
+    background:
+      radial-gradient(ellipse at 60% 0%, rgba(133,154,193,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 0% 80%, rgba(61,96,160,0.08) 0%, transparent 50%),
+      linear-gradient(160deg, #eef3fa 0%, #f8faff 40%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 48px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  /* dot grid overlay */
+  .page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(61,96,160,0.12) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  /* subtle top accent bar */
+  .top-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1f355b, #3d60a0, #859ac1, transparent);
+  }
+
+  /* NAV */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+  .nav img {
+    height: 52px;
+    width: auto;
+    object-fit: contain;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    font-size: 13px;
+    color: #4b6080;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+  }
+  .nav-cta {
+    padding: 10px 24px;
+    background: #1f355b;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.2px;
+  }
+
+  /* HERO */
+  .hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    padding: 24px 0 48px;
+    max-width: 600px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 14px;
+    background: rgba(61,96,160,0.08);
+    border: 1px solid rgba(61,96,160,0.2);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #3d60a0;
+    margin-bottom: 28px;
+    width: fit-content;
+  }
+  .badge::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #3d60a0;
+  }
+
+  .headline {
+    font-size: 58px;
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -3.5px;
+    color: #0d1827;
+    margin-bottom: 22px;
+  }
+  .headline .accent { color: #3d60a0; }
+
+  .sub {
+    font-size: 16px;
+    color: #5a7090;
+    line-height: 1.65;
+    max-width: 420px;
+    margin-bottom: 40px;
+  }
+
+  .ctas {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .btn-primary {
+    padding: 15px 32px;
+    background: #1f355b;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+  }
+  .btn-secondary {
+    padding: 15px 26px;
+    border: 1.5px solid rgba(61,96,160,0.25);
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #3d60a0;
+    background: rgba(61,96,160,0.04);
+  }
+
+  /* STATS */
+  .stats {
+    display: flex;
+    gap: 40px;
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid rgba(61,96,160,0.12);
+    padding-top: 32px;
+  }
+  .stat-val {
+    font-size: 32px;
+    font-weight: 900;
+    color: #1f355b;
+    letter-spacing: -2px;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: #859ac1;
+    font-weight: 500;
+    margin-top: 3px;
+    letter-spacing: 0.3px;
+  }
+
+  .hint {
+    text-align: center;
+    padding: 14px;
+    background: #0d1827;
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="top-bar"></div>
+
+  <div class="nav">
+    <img src="https://assets.cdn.filesafe.space/5KNcJcblwftDgsKpBJfp/media/68558801ac9458168baee31e.svg" alt="Compass" />
+    <div class="nav-links">
+      <span>Overview</span>
+      <span>Features</span>
+      <span>Pricing</span>
+      <span>Login</span>
+    </div>
+    <div class="nav-cta">Schedule a Demo</div>
+  </div>
+
+  <div class="hero">
+    <div class="badge">AI-Powered CRM &amp; Automation Platform</div>
+    <div class="headline">
+      Convert More<br><span class="accent">Leads</span><br>Into Sales
+    </div>
+    <div class="sub">
+      Capture, nurture, and close leads on autopilot through SMS, Email, Live Chat, Phone Calls, and more — all in one place.
+    </div>
+    <div class="ctas">
+      <div class="btn-primary">Get Started — $197/mo</div>
+      <div class="btn-secondary">Watch Overview →</div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div>
+      <div class="stat-val">80%</div>
+      <div class="stat-label">Response Rate</div>
+    </div>
+    <div>
+      <div class="stat-val">7×</div>
+      <div class="stat-label">Follow-up Channels</div>
+    </div>
+    <div>
+      <div class="stat-val">24/7</div>
+      <div class="stat-label">Automation</div>
+    </div>
+    <div>
+      <div class="stat-val">100+</div>
+      <div class="stat-label">Integrations</div>
+    </div>
+  </div>
+</div>
+
+<div class="hint">Tell me what you think in the terminal · Does this feel right?</div>
+
+</body>
+</html>
