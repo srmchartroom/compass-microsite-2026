@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Compass — Header Nav + Alert Banner (Standalone)</title>
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Figtree:wght@300;400;500;600;700;800;900&display=swap"
+			rel="stylesheet"
+		/>
+
+		<style>
+			/* ── Brand Tokens ── */
+			:root {
+				--navy:        #1f355b;
+				--blue:        #3d60a0;
+				--light-blue:  #859ac1;
+				--cream:       #eef3fa;
+				--white:       #ffffff;
+				--dark:        #0d1827;
+				--text-muted:  #5a7090;
+				--border:      rgba(61, 96, 160, 0.15);
+
+				--font-headline: 'Montserrat', sans-serif;
+				--font-body:     'Figtree', sans-serif;
+
+				--radius-sm:  6px;
+				--radius-md:  12px;
+				--radius-lg:  20px;
+				--radius-pill: 100px;
+
+				--shadow-sm: 0 1px 3px rgba(13,24,39,0.08), 0 1px 2px rgba(13,24,39,0.06);
+				--shadow-md: 0 4px 16px rgba(13,24,39,0.10), 0 2px 6px rgba(13,24,39,0.08);
+				--shadow-lg: 0 12px 40px rgba(13,24,39,0.14), 0 4px 12px rgba(13,24,39,0.10);
+
+				--transition: 0.25s ease;
+			}
+
+			/* ── Reset ── */
+			*, *::before, *::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+
+			html {
+				scroll-behavior: smooth;
+			}
+
+			body {
+				font-family: var(--font-body);
+				font-size: 16px;
+				line-height: 1.6;
+				color: var(--dark);
+				background: var(--white);
+				padding-top: 148px;
+			}
+
+			/* ── Keyframes ── */
+			@keyframes shimmer {
+				0%   { background-position: -200% 0; }
+				100% { background-position: 200% 0; }
+			}
+
+			@keyframes gear-spin {
+				from { transform: rotate(0deg); }
+				to   { transform: rotate(360deg); }
+			}
+
+			@keyframes moving-border {
+				0%   { background-position: 0% 50%; }
+				50%  { background-position: 100% 50%; }
+				100% { background-position: 0% 50%; }
+			}
+
+			/* ── Announcement Bar ── */
+			#announcement-bar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 200;
+				background: #04060b;
+				overflow: hidden;
+				max-height: 44px;
+				transition:
+					max-height 0.3s ease,
+					opacity 0.3s ease;
+			}
+
+			.ann-bar-inner {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 10px;
+				padding: 10px 16px;
+				position: relative;
+			}
+
+			.ann-bar-inner::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(
+					90deg,
+					transparent 0%,
+					rgba(133, 154, 193, 0.2) 40%,
+					rgba(255, 255, 255, 0.12) 50%,
+					rgba(133, 154, 193, 0.2) 60%,
+					transparent 100%
+				);
+				background-size: 200% 100%;
+				animation: shimmer 3s linear infinite;
+				pointer-events: none;
+			}
+
+			.ann-bar-text {
+				font-family: var(--font-body);
+				font-size: 0.8125rem;
+				font-weight: 500;
+				color: rgba(255, 255, 255, 0.85);
+				letter-spacing: 0.02em;
+				position: relative;
+				z-index: 1;
+			}
+
+			.ann-bar-link {
+				font-family: var(--font-body);
+				font-size: 0.8125rem;
+				font-weight: 700;
+				color: var(--light-blue);
+				text-decoration: none;
+				position: relative;
+				z-index: 1;
+				transition: color 0.2s ease;
+			}
+
+			.ann-bar-link:hover {
+				color: #fff;
+			}
+
+			.ann-gear {
+				position: relative;
+				z-index: 1;
+				font-size: 0.875rem;
+				opacity: 0;
+				transform: translateX(-12px) rotate(0deg);
+				transition:
+					opacity 0.3s ease,
+					transform 0.3s ease;
+				pointer-events: none;
+				user-select: none;
+			}
+
+			.ann-gear-right {
+				transform: translateX(12px) rotate(0deg);
+			}
+
+			#announcement-bar:hover .ann-gear {
+				opacity: 0.6;
+				transform: translateX(0) rotate(0deg);
+				animation: gear-spin 3s linear infinite;
+			}
+
+			#announcement-bar:hover .ann-gear-right {
+				animation-direction: reverse;
+			}
+
+			.ann-dismiss {
+				position: absolute;
+				right: 14px;
+				top: 50%;
+				transform: translateY(-50%);
+				background: none;
+				border: none;
+				color: rgba(255, 255, 255, 0.4);
+				font-size: 1rem;
+				cursor: pointer;
+				line-height: 1;
+				padding: 4px;
+				z-index: 1;
+				transition: color 0.2s ease;
+			}
+
+			.ann-dismiss:hover {
+				color: rgba(255, 255, 255, 0.9);
+			}
+
+			/* ── Navigation ── */
+			#compass-nav {
+				position: fixed;
+				top: 44px;
+				left: 0;
+				right: 0;
+				z-index: 100;
+				background: #fff;
+				box-shadow: 0 1px 0 rgba(31, 53, 91, 0.08);
+				transition:
+					top 0.3s ease,
+					background 0.3s ease,
+					backdrop-filter 0.3s ease,
+					box-shadow 0.3s ease;
+			}
+
+			body.bar-dismissed #compass-nav {
+				top: 0;
+			}
+
+			#compass-nav.scrolled {
+				background: rgba(15, 26, 47, 0.88);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+				box-shadow: 0 1px 0 rgba(61, 96, 160, 0.2);
+			}
+
+			.nav-inner {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 16px 40px;
+				max-width: 1280px;
+				margin: 0 auto;
+				transition: padding 0.3s ease;
+			}
+
+			#compass-nav.scrolled .nav-inner {
+				padding: 10px 40px;
+			}
+
+			.nav-logo img {
+				height: 104px;
+				width: auto;
+				object-fit: contain;
+				transition: height 0.3s ease;
+				display: block;
+			}
+
+			#compass-nav.scrolled .nav-logo img {
+				height: 72px;
+			}
+
+			/* Moving border button */
+			.compass-btn-moving-border {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 3px;
+				border-radius: var(--radius-md);
+				background: linear-gradient(
+					90deg,
+					#1f355b 0%,
+					#3d60a0 22%,
+					#c0d4ff 44%,
+					#ffffff 50%,
+					#c0d4ff 56%,
+					#3d60a0 78%,
+					#1f355b 100%
+				);
+				background-size: 300% 300%;
+				animation: moving-border 2.5s linear infinite;
+				text-decoration: none;
+				cursor: pointer;
+			}
+
+			.compass-btn-moving-border-inner {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 11px 29px;
+				background: var(--navy);
+				border-radius: calc(var(--radius-md) - 3px);
+				color: var(--white);
+				font-family: var(--font-body);
+				font-size: 0.9375rem;
+				font-weight: 700;
+				letter-spacing: 0.01em;
+				white-space: nowrap;
+				transition: background var(--transition);
+			}
+
+			.compass-btn-moving-border:hover .compass-btn-moving-border-inner {
+				background: var(--blue);
+			}
+
+			.nav-cta-wrap.compass-btn-moving-border .compass-btn-moving-border-inner {
+				padding: 9px 22px;
+				font-size: 0.8125rem;
+			}
+
+			/* Hamburger (mobile only) */
+			#nav-hamburger {
+				display: none;
+				flex-direction: column;
+				gap: 5px;
+				cursor: pointer;
+				padding: 8px;
+				background: none;
+				border: none;
+			}
+
+			#nav-hamburger span {
+				display: block;
+				width: 22px;
+				height: 2px;
+				background: var(--navy);
+				border-radius: 2px;
+				transition:
+					transform 0.25s ease,
+					opacity 0.25s ease,
+					background 0.3s ease;
+			}
+
+			#compass-nav.scrolled #nav-hamburger span {
+				background: rgba(255, 255, 255, 0.8);
+			}
+
+			/* Mobile drawer */
+			#nav-drawer {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(13, 24, 39, 0.97);
+				backdrop-filter: blur(16px);
+				-webkit-backdrop-filter: blur(16px);
+				z-index: 150;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 32px;
+				transform: translateY(-100%);
+				transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+				pointer-events: none;
+			}
+
+			#nav-drawer.is-open {
+				transform: translateY(0);
+				pointer-events: all;
+			}
+
+			.drawer-links {
+				list-style: none;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 28px;
+				text-align: center;
+			}
+
+			.drawer-links a {
+				font-family: var(--font-headline);
+				font-size: 2rem;
+				font-weight: 700;
+				color: rgba(255, 255, 255, 0.85);
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+
+			.drawer-links a:hover {
+				color: var(--light-blue);
+			}
+
+			#nav-drawer-close {
+				position: absolute;
+				top: 24px;
+				right: 24px;
+				background: none;
+				border: none;
+				color: rgba(255, 255, 255, 0.5);
+				font-size: 1.5rem;
+				cursor: pointer;
+				transition: color 0.2s ease;
+			}
+
+			#nav-drawer-close:hover {
+				color: #fff;
+			}
+
+			@media (max-width: 768px) {
+				.nav-cta-wrap {
+					display: none;
+				}
+
+				#nav-hamburger {
+					display: flex;
+				}
+
+				.nav-inner {
+					padding: 14px 20px;
+				}
+
+				.nav-logo img {
+					height: 72px;
+				}
+			}
+
+			/* ── Demo content (for scroll testing only) ── */
+			.demo-content {
+				max-width: 800px;
+				margin: 60px auto;
+				padding: 0 20px;
+				color: var(--text-muted);
+				font-size: 1.125rem;
+				line-height: 2;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- ============================================================
+		  ANNOUNCEMENT BAR
+		============================================================ -->
+		<div id="announcement-bar">
+			<div class="ann-bar-inner">
+				<span class="ann-gear" aria-hidden="true">⚙</span>
+				<span class="ann-bar-text">Book Your Demo of Compass Now</span>
+				<a class="ann-bar-link" href="#bottom-cta">→</a>
+				<span class="ann-gear ann-gear-right" aria-hidden="true">⚙</span>
+				<button class="ann-dismiss" data-dismiss-bar aria-label="Dismiss announcement">✕</button>
+			</div>
+		</div>
+
+		<script>
+			// Announcement bar: check sessionStorage on load; wire dismiss button
+			(function () {
+				var bar = document.getElementById("announcement-bar");
+				if (!bar) return;
+
+				if (sessionStorage.getItem("compass-bar-dismissed") === "1") {
+					bar.style.display = "none";
+					document.body.classList.add("bar-dismissed");
+					return;
+				}
+
+				var btn = bar.querySelector("[data-dismiss-bar]");
+				if (!btn) return;
+
+				btn.addEventListener("click", function () {
+					bar.style.transition = "max-height 0.3s ease, opacity 0.3s ease";
+					bar.style.maxHeight = "0px";
+					bar.style.opacity = "0";
+					setTimeout(function () {
+						bar.style.display = "none";
+						document.body.classList.add("bar-dismissed");
+					}, 320);
+					sessionStorage.setItem("compass-bar-dismissed", "1");
+				});
+			})();
+		</script>
+
+		<!-- ============================================================
+		  NAVIGATION
+		============================================================ -->
+		<nav id="compass-nav" role="navigation" aria-label="Main navigation">
+			<div class="nav-inner">
+				<a class="nav-logo" href="/">
+					<img
+						src="https://assets.cdn.filesafe.space/5KNcJcblwftDgsKpBJfp/media/68558801ac9458168baee31e.svg"
+						alt="Compass by Chart Room"
+						width="280"
+						height="104"
+					/>
+				</a>
+
+				<a class="nav-cta-wrap compass-btn-moving-border" href="https://plans.compass-os.ai/order-compass-197">
+					<span class="compass-btn-moving-border-inner">Schedule a Demo</span>
+				</a>
+
+				<button id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+			</div>
+		</nav>
+
+		<!-- Mobile drawer -->
+		<div id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+			<button id="nav-drawer-close" aria-label="Close menu">✕</button>
+			<ul class="drawer-links" role="list">
+				<li>
+					<a href="https://plans.compass-os.ai/order-compass-197" data-nav-link>Schedule a Demo</a>
+				</li>
+			</ul>
+		</div>
+
+		<script>
+			// Logo swap: dark SVG on white nav → light PNG when nav goes dark on scroll
+			(function () {
+				var logoImg = document.querySelector("#compass-nav .nav-logo img");
+				if (!logoImg) return;
+				var darkSrc = "https://assets.cdn.filesafe.space/5KNcJcblwftDgsKpBJfp/media/68558801ac9458168baee31e.svg";
+				var lightSrc = "https://assets.cdn.filesafe.space/5KNcJcblwftDgsKpBJfp/media/685588248b2950e5056f625d.png";
+				function updateLogo() {
+					var scrolled = window.scrollY > 60;
+					logoImg.src = scrolled ? lightSrc : darkSrc;
+				}
+				window.addEventListener("scroll", updateLogo, { passive: true });
+				updateLogo();
+			})();
+
+			// Nav scroll state: add .scrolled class when page is scrolled
+			(function () {
+				var nav = document.getElementById("compass-nav");
+				if (!nav) return;
+				function onScroll() {
+					nav.classList.toggle("scrolled", window.scrollY > 60);
+				}
+				window.addEventListener("scroll", onScroll, { passive: true });
+				onScroll();
+			})();
+
+			// Mobile drawer open/close
+			(function () {
+				var hamburger = document.getElementById("nav-hamburger");
+				var drawer = document.getElementById("nav-drawer");
+				var closeBtn = document.getElementById("nav-drawer-close");
+				if (!hamburger || !drawer) return;
+
+				function openDrawer() {
+					drawer.classList.add("is-open");
+					hamburger.setAttribute("aria-expanded", "true");
+					document.body.style.overflow = "hidden";
+				}
+
+				function closeDrawer() {
+					drawer.classList.remove("is-open");
+					hamburger.setAttribute("aria-expanded", "false");
+					document.body.style.overflow = "";
+				}
+
+				hamburger.addEventListener("click", openDrawer);
+				if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
+
+				drawer.querySelectorAll("a, [data-nav-link]").forEach(function (link) {
+					link.addEventListener("click", closeDrawer);
+				});
+			})();
+		</script>
+
+		<!-- Demo content for scroll testing — remove when embedding -->
+		<div class="demo-content">
+			<p>Scroll down to see the nav transition from white to dark. The announcement bar can be dismissed with the ✕ button. On mobile widths (&lt;768px), the hamburger menu appears with a slide-down drawer.</p>
+			<p style="margin-top: 200vh;">End of scroll test area.</p>
+		</div>
+	</body>
+</html>
