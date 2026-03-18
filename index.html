@@ -1627,6 +1627,14 @@
     animation: marquee-scroll var(--marquee-duration, 26s) linear infinite reverse;
   }
 
+  /* Rows 3 & 4 — alternate speeds */
+  .marquee-track.speed-med {
+    animation: marquee-scroll var(--marquee-duration, 22s) linear infinite;
+  }
+  .marquee-track.reverse.speed-med {
+    animation: marquee-scroll var(--marquee-duration, 28s) linear infinite reverse;
+  }
+
   .marquee-logo {
     display: flex;
     align-items: center;
@@ -1674,65 +1682,193 @@
   </div>
 
   <div class="int-logos-section">
-    <!-- Row 1: scrolls left -->
+
+    <!-- Row 1: scrolls left (20s) -->
     <div class="marquee-wrapper">
       <div class="marquee-track">
         <!-- First copy -->
-        <div class="marquee-logo"><div class="marquee-logo-icon">S</div>Stripe</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">Q</div>QuickBooks</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">f</div>Facebook</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">IG</div>Instagram</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">in</div>LinkedIn</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">T</div>TikTok</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">G</div>Google</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">Z</div>Zapier</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">Zm</div>Zoom</div>
         <div class="marquee-logo"><div class="marquee-logo-icon">Sl</div>Slack</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">GC</div>Google Calendar</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">HS</div>HubSpot</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">S</div>Stripe</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Zm</div>Zoom</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Tk</div>TikTok</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">DS</div>DocuSign</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">MC</div>Mailchimp</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">ST</div>ServiceTitan</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Xe</div>Xero</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Kj</div>Kajabi</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Tr</div>Trello</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">TP</div>Trustpilot</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">SS</div>ShipStation</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">HC</div>Housecall Pro</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">As</div>Asana</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Ci</div>Clio</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Cv</div>Canva</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Fa</div>Fathom</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">WC</div>WooCommerce</div>
         <!-- Second copy (identical — for seamless loop) -->
-        <div class="marquee-logo"><div class="marquee-logo-icon">S</div>Stripe</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">Q</div>QuickBooks</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">f</div>Facebook</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">IG</div>Instagram</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">in</div>LinkedIn</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">T</div>TikTok</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">G</div>Google</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">Z</div>Zapier</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">Zm</div>Zoom</div>
         <div class="marquee-logo"><div class="marquee-logo-icon">Sl</div>Slack</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">GC</div>Google Calendar</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">HS</div>HubSpot</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">S</div>Stripe</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Zm</div>Zoom</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Tk</div>TikTok</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">DS</div>DocuSign</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">MC</div>Mailchimp</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">ST</div>ServiceTitan</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Xe</div>Xero</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Kj</div>Kajabi</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Tr</div>Trello</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">TP</div>Trustpilot</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">SS</div>ShipStation</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">HC</div>Housecall Pro</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">As</div>Asana</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Ci</div>Clio</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Cv</div>Canva</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Fa</div>Fathom</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">WC</div>WooCommerce</div>
       </div>
     </div>
 
-    <!-- Row 2: scrolls right (reverse direction) -->
+    <!-- Row 2: scrolls right (26s) -->
     <div class="marquee-wrapper">
       <div class="marquee-track reverse">
         <!-- First copy -->
-        <div class="marquee-logo"><div class="marquee-logo-icon">Tw</div>Twilio</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">Mg</div>Mailgun</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">SG</div>SendGrid</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">PP</div>PayPal</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">f</div>Facebook</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">QB</div>QuickBooks</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Ac</div>Acuity Scheduling</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">No</div>Notion</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">in</div>LinkedIn</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Gu</div>Gusto</div>
         <div class="marquee-logo"><div class="marquee-logo-icon">Sh</div>Shopify</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">WP</div>WordPress</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">Cl</div>Calendly</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">AC</div>ActiveCampaign</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Cd</div>Calendly</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">BE</div>Birdeye</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">OR</div>OpenRouter</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">MS</div>Microsoft Teams</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Au</div>Authorize.net</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Kb</div>Karbon</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Jf</div>Jotform</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Ye</div>Yext</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">PD</div>Pipedrive</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">NJ</div>NiceJob</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Db</div>Dropbox</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Mn</div>Manus</div>
+        <!-- Second copy (identical) -->
+        <div class="marquee-logo"><div class="marquee-logo-icon">f</div>Facebook</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">QB</div>QuickBooks</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Ac</div>Acuity Scheduling</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">No</div>Notion</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">in</div>LinkedIn</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Gu</div>Gusto</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Sh</div>Shopify</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Cd</div>Calendly</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">BE</div>Birdeye</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">OR</div>OpenRouter</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">MS</div>Microsoft Teams</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Au</div>Authorize.net</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Kb</div>Karbon</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Jf</div>Jotform</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Ye</div>Yext</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">PD</div>Pipedrive</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">NJ</div>NiceJob</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Db</div>Dropbox</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Mn</div>Manus</div>
+      </div>
+    </div>
+
+    <!-- Row 3: scrolls left (22s) -->
+    <div class="marquee-wrapper">
+      <div class="marquee-track speed-med">
+        <!-- First copy -->
+        <div class="marquee-logo"><div class="marquee-logo-icon">IG</div>Instagram</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Tw</div>Twilio</div>
         <div class="marquee-logo"><div class="marquee-logo-icon">SF</div>Salesforce</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">HS</div>HubSpot</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Mo</div>Monday.com</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">CR</div>CallRail</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">PP</div>PayPal</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Ai</div>Airtable</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Tc</div>Teachable</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Gy</div>Guesty</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">PF</div>Printful</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">WB</div>Wealthbox</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Lo</div>Loom</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">TF</div>Typeform</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">GB</div>Google Business Profile</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">RT</div>Redtail</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Wv</div>Wave</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">SG</div>SendGrid</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Hp</div>Hospitable</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">CU</div>ClickUp</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">BC</div>BaseCamp</div>
+        <!-- Second copy (identical) -->
+        <div class="marquee-logo"><div class="marquee-logo-icon">IG</div>Instagram</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Tw</div>Twilio</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">SF</div>Salesforce</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Mo</div>Monday.com</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">CR</div>CallRail</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">PP</div>PayPal</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Ai</div>Airtable</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Tc</div>Teachable</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Gy</div>Guesty</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">PF</div>Printful</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">WB</div>Wealthbox</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Lo</div>Loom</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">TF</div>Typeform</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">GB</div>Google Business Profile</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">RT</div>Redtail</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Wv</div>Wave</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">SG</div>SendGrid</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Hp</div>Hospitable</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">CU</div>ClickUp</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">BC</div>BaseCamp</div>
+      </div>
+    </div>
+
+    <!-- Row 4: scrolls right (28s) — ends on 2000+ via Zapier -->
+    <div class="marquee-wrapper">
+      <div class="marquee-track reverse speed-med">
+        <!-- First copy -->
+        <div class="marquee-logo"><div class="marquee-logo-icon">G</div>Google</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Sq</div>Square</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Mg</div>Mailgun</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">AC</div>ActiveCampaign</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Th</div>Thinkific</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Kr</div>Keragon</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">SN</div>ServiceNow</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">WA</div>WhatsApp Business</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Jb</div>Jobber</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Zi</div>Zillow</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">LP</div>LawPay</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">My</div>MyCase</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">DM</div>DockMaster</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Pi</div>Printify</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Sp</div>Shippo</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">FB</div>FreshBooks</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">AI</div>ChatGPT / OpenAI</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">C</div>Claude</div>
         <div class="marquee-logo"><div class="marquee-logo-icon">+</div>2000+ via Zapier</div>
         <!-- Second copy (identical) -->
-        <div class="marquee-logo"><div class="marquee-logo-icon">Tw</div>Twilio</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">G</div>Google</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Sq</div>Square</div>
         <div class="marquee-logo"><div class="marquee-logo-icon">Mg</div>Mailgun</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">SG</div>SendGrid</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">PP</div>PayPal</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">Sh</div>Shopify</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">WP</div>WordPress</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">Cl</div>Calendly</div>
         <div class="marquee-logo"><div class="marquee-logo-icon">AC</div>ActiveCampaign</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">SF</div>Salesforce</div>
-        <div class="marquee-logo"><div class="marquee-logo-icon">HS</div>HubSpot</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Th</div>Thinkific</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Kr</div>Keragon</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">SN</div>ServiceNow</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">WA</div>WhatsApp Business</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Jb</div>Jobber</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Zi</div>Zillow</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">LP</div>LawPay</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">My</div>MyCase</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">DM</div>DockMaster</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Pi</div>Printify</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">Sp</div>Shippo</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">FB</div>FreshBooks</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">AI</div>ChatGPT / OpenAI</div>
+        <div class="marquee-logo"><div class="marquee-logo-icon">C</div>Claude</div>
         <div class="marquee-logo"><div class="marquee-logo-icon">+</div>2000+ via Zapier</div>
       </div>
     </div>
+
   </div>
 </section>
 
