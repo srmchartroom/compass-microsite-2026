@@ -1,17 +1,4 @@
 {
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "cd \"/c/Users/CRC ThinkStation/Desktop/compass-site\" && if [ -n \"$(git status --porcelain)\" ]; then git add -A && MSG=\"auto: $(git diff --cached --name-only | head -3 | tr '\\n' ' ')[$(date '+%Y-%m-%d %H:%M')]\" && git commit -m \"$MSG\" && git push origin master; fi 2>/dev/null || true",
-            "statusMessage": "Committing and pushing to GitHub..."
-          }
-        ]
-      }
-    ]
-  },
   "permissions": {
     "allow": [
       "Bash(claude mcp:*)",
@@ -59,7 +46,21 @@
       "mcp__claude_ai_Vercel__list_deployments",
       "mcp__claude_ai_Vercel__get_deployment",
       "Skill(update-config)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "Bash(./vercel --prod)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"/c/Users/CRC ThinkStation/Desktop/compass-site\" && if [ -n \"$(git status --porcelain)\" ]; then git add -A && MSG=\"auto: $(git diff --cached --name-only | head -3 | tr '\\n' ' ')[$(date '+%Y-%m-%d %H:%M')]\" && git commit -m \"$MSG\" && git push origin master; fi 2>/dev/null || true",
+            "statusMessage": "Committing and pushing to GitHub..."
+          }
+        ]
+      }
     ]
   }
 }
